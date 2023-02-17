@@ -21,8 +21,8 @@ export const routes: Routes = [
   {
     path: 'profile',
     loadComponent: () =>
-      import('./modules/reader/reader.component').then(
-        (mod) => mod.ReaderComponent
+      import('./modules/profile/profile.component').then(
+        (mod) => mod.ProfileComponent
       ),
   },
 ];
