@@ -1,5 +1,5 @@
 .login-card {
-  max-width: 40vw;
+  max-width: 50vw;
 }
 
 .login-layer {
@@ -9,6 +9,10 @@
   align-items: center;
 }
 
+.login-button {
+  width: 40vw;
+}
+
 .login-form {
   display: flex;
   align-content: center;
@@ -16,5 +20,5 @@
 }
 
 .login-input {
-  width: 30vw;
+  width: 40vw;
 }

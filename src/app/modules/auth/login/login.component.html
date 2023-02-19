@@ -26,7 +26,12 @@
             6 characters min length
           </mat-error>
         </mat-form-field>
-        <button mat-raised-button color="primary" [disabled]="isInvalid">
+        <button
+          mat-raised-button
+          color="primary"
+          class="login-button"
+          [disabled]="isInvalid"
+        >
           <mat-icon>login</mat-icon>
         </button>
       </form>
