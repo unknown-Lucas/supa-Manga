@@ -1,1 +1,42 @@
-<p>login works!</p>
+<div class="login-layer">
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title>MangaHub Auth</mat-card-title>
+      <mat-card-subtitle>Login</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <br />
+      <form class="login-form" [formGroup]="loginForm">
+        <mat-form-field class="login-input">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            placeholder="Ex. pat@example.com"
+            formControlName="email"
+            required
+          />
+          <mat-error *ngIf="emailErrors">
+            Please enter a valid email address
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="login-input">
+          <mat-label>Password</mat-label>
+          <input type="password" matInput formControlName="password" required />
+          <mat-error *ngIf="passwordErrors">
+            6 characters min length
+          </mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary" [disabled]="isInvalid">
+          <mat-icon>login</mat-icon>
+        </button>
+      </form>
+    </mat-card-content>
+    <mat-card-footer style="text-align: center">
+      <br />
+      <p>
+        If you dont have an account you can singUp
+        <a role="button" [routerLink]="['/singUp']" alt="singUp">here</a>
+      </p>
+    </mat-card-footer>
+  </mat-card>
+</div>

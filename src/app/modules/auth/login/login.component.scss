@@ -1,0 +1,20 @@
+.login-card {
+  max-width: 40vw;
+}
+
+.login-layer {
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form {
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+}
+
+.login-input {
+  width: 30vw;
+}
