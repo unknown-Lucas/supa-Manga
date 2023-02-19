@@ -13,10 +13,6 @@ import { AppComponent } from './app/app.component';
 bootstrapApplication(AppComponent, {
   providers: [
     importProvidersFrom(BrowserAnimationsModule),
-    provideRouter(
-      routes,
-      withPreloading(PreloadAllModules),
-      withDebugTracing()
-    ),
+    provideRouter(routes, withDebugTracing()),
   ],
 }).catch((err) => console.error(err));

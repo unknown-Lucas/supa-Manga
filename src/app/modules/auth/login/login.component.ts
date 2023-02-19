@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { modules } from './m';
+import { modules } from '../m';
 
 @Component({
   selector: 'app-login',
@@ -29,6 +29,6 @@ export class LoginComponent {
   }
 
   get isInvalid() {
-    return this.loginForm.invalid;
+    return this.loginForm.invalid || this.loginForm.pristine;
   }
 }

@@ -3,7 +3,14 @@
 }
 
 .login-layer {
-  height: 90vh;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  background-image: url("/assets/backGrounds/login.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { modules } from '../m';
 
 @Component({
   selector: 'app-sing-up',
   standalone: true,
-  imports: [CommonModule],
+  imports: [...modules],
   templateUrl: './sing-up.component.html',
-  styleUrls: ['./sing-up.component.scss']
+  styleUrls: ['./sing-up.component.scss'],
 })
-export class SingUpComponent {
-
-}
+export class SingUpComponent {}
