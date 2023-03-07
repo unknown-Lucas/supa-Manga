@@ -1,0 +1,31 @@
+.register-card {
+  max-width: 50vw;
+}
+
+.register-layer {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  background-image: url("/assets/backGrounds/login.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-button {
+  width: 40vw;
+}
+
+.register-form {
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+}
+
+.register-input {
+  width: 40vw;
+}
