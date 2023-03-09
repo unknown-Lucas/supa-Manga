@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { AuthActions } from 'src/app/core/state/auth/auth.actions';
 import { modules } from '../m';
 
 @Component({
@@ -10,6 +12,8 @@ import { modules } from '../m';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
+  constructor(private _store: Store) {}
+
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [
@@ -30,5 +34,16 @@ export class LoginComponent {
 
   get isInvalid() {
     return this.loginForm.invalid || this.loginForm.pristine;
+  }
+
+  logIn() {
+    const value = { ...this.loginForm.value } as {
+      email: string;
+      password: string;
+    };
+
+    this._store.dispatch(
+      AuthActions.LOG_IN({ password: value.password, email: value.email })
+    );
   }
 }

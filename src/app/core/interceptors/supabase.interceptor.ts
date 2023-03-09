@@ -2,10 +2,16 @@ import { HttpInterceptorFn } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 export const supabaseInterceptor: HttpInterceptorFn = (req, next) => {
-  console.log('supaBaseInterceptor');
-
+  let headers = req.headers;
+  const token = localStorage.getItem('Auth');
   //? Setting supabase token
-  const headers = req.headers.set('apikey', environment.supabaseKey);
+  if (token) {
+    headers = req.headers
+      .set('apikey', environment.supabaseKey)
+      .set('Authorization', 'Bearer ' + token);
+  } else {
+    headers = req.headers.set('apikey', environment.supabaseKey);
+  }
 
   req = req.clone({
     headers,
