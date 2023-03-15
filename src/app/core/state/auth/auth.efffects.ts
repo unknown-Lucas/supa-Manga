@@ -16,7 +16,7 @@ export class AuthEffects {
           switchMap((data: any) => {
             if (data.aud === 'authenticated') {
               return [
-                NotificationActions.SHOW_OK_MESSAGE({
+                NotificationActions.SHOW_INFO_MESSAGE({
                   message: 'There is already an account with that email',
                 }),
               ];
@@ -50,7 +50,7 @@ export class AuthEffects {
       mergeMap(({ email, password }) =>
         this._authService.logIn({ email, password }).pipe(
           switchMap((data) => {
-            this._router.navigate(['/']);
+            this._router.navigate(['/mangas']);
             return [
               AuthActions.LOG_IN_SUCCESS({ user: data }),
               NotificationActions.SHOW_OK_MESSAGE({

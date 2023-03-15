@@ -1,1 +1,14 @@
-<app-manga-card></app-manga-card>
+<div>
+  <span *ngIf="!(isMangaLoading$ | async)" class="mangaContainer">
+    <app-manga-card
+      *ngFor="let manga of mangasCollection$ | async"
+      [manga]="manga"
+    ></app-manga-card>
+  </span>
+  <span *ngIf="isMangaLoading$ | async"
+    ><mat-progress-bar
+      mode="indeterminate"
+      class="progressBar"
+    ></mat-progress-bar>
+  </span>
+</div>

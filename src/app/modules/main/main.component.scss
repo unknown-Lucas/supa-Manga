@@ -1,0 +1,11 @@
+.mangaContainer {
+  display: flex;
+  align-content: space-between;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.progressBar {
+  position: absolute;
+  top: 50%;
+}

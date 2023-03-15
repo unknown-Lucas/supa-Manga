@@ -1,11 +1,34 @@
 import { Routes } from '@angular/router';
+import { provideEffects } from '@ngrx/effects';
+import { provideState } from '@ngrx/store';
 import { AuthService } from './core/services/auth.service';
 import { MangaService } from './core/services/manga.service';
+import { MangaEffects } from './core/state/mangas/mangas.effects';
+import { MANGA_REDUCERS } from './core/state/mangas/mangas.state';
 
 export const routes: Routes = [
   {
     path: '',
-    providers: [MangaService],
+    redirectTo: '/mangas',
+    pathMatch: 'full',
+  },
+  {
+    path: 'mangas',
+    providers: [
+      MangaService,
+      provideEffects([MangaEffects]),
+      provideState('MangaModule', MANGA_REDUCERS),
+    ],
+    loadComponent: () =>
+      import('./modules/main/main.component').then((mod) => mod.MainComponent),
+  },
+  {
+    path: 'mangas/:mangaId',
+    providers: [
+      MangaService,
+      provideEffects([MangaEffects]),
+      provideState('MangaModule', MANGA_REDUCERS),
+    ],
     loadComponent: () =>
       import('./modules/main/main.component').then((mod) => mod.MainComponent),
   },
