@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AuthActions } from 'src/app/core/state/auth/auth.actions';
+import { NotificationActions } from 'src/app/core/state/notifications/notifications.actions';
 import { modules } from '../m';
 
 @Component({
@@ -11,8 +13,8 @@ import { modules } from '../m';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
-  constructor(private _store: Store) {}
+export class LoginComponent implements OnInit {
+  constructor(private _store: Store, private _router: Router) {}
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -45,5 +47,17 @@ export class LoginComponent {
     this._store.dispatch(
       AuthActions.LOG_IN({ password: value.password, email: value.email })
     );
+  }
+
+  ngOnInit(): void {
+    const token = localStorage.getItem('Auth');
+    if (token) {
+      this._store.dispatch(
+        NotificationActions.SHOW_INFO_MESSAGE({
+          message: 'You are already logged In',
+        })
+      );
+      this._router.navigate(['/']);
+    }
   }
 }

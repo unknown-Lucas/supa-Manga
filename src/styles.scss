@@ -8,3 +8,26 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+.mat-mdc-snack-bar-container {
+  &.snackbar-ok {
+    --mdc-snackbar-container-color: #6fd113;
+    --mat-mdc-snack-bar-button-color: #fff;
+    --mdc-snackbar-supporting-text-color: #fff;
+  }
+}
+
+.mat-mdc-snack-bar-container {
+  &.snackbar-error {
+    --mdc-snackbar-container-color: #d61212;
+    --mat-mdc-snack-bar-button-color: #fff;
+    --mdc-snackbar-supporting-text-color: #fff;
+  }
+}
+
+.mat-mdc-snack-bar-container {
+  &.snackbar-info {
+    --mdc-snackbar-container-color: #e2b214;
+    --mat-mdc-snack-bar-button-color: #fff;
+    --mdc-snackbar-supporting-text-color: #fff;
+  }
+}

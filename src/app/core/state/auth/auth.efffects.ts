@@ -34,7 +34,7 @@ export class AuthEffects {
           catchError((errorData: any) => {
             console.log(errorData);
             return of(
-              NotificationActions.SHOW_OK_MESSAGE({
+              NotificationActions.SHOW_WARNING_MESSAGE({
                 message: errorData?.error?.error_description ?? errorData?.msg,
               })
             );
@@ -61,7 +61,7 @@ export class AuthEffects {
           catchError((errorData: any) => {
             console.log(errorData);
             return of(
-              NotificationActions.SHOW_OK_MESSAGE({
+              NotificationActions.SHOW_WARNING_MESSAGE({
                 message: errorData?.error?.error_description ?? errorData?.msg,
               })
             );

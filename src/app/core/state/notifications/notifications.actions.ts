@@ -12,7 +12,7 @@ export namespace NotificationActions {
   );
 
   export const SHOW_INFO_MESSAGE = createAction(
-    '[NOTIFICATION WARNING] SHOW WARNING MESSAGE',
+    '[NOTIFICATION INFO] SHOW INFO MESSAGE',
     props<{ message: string }>()
   );
 

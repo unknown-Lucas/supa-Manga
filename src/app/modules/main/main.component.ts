@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MangaService } from 'src/app/core/services/manga.service';
+import { MangaCardComponent } from 'src/app/shared/components/manga-card/manga-card.component';
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MangaCardComponent],
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
 })
