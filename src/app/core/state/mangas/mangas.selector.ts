@@ -7,14 +7,14 @@ export const selectAuthFeature =
 export const selectMangaCollection = createSelector(
   selectAuthFeature,
   (state: MangaReducerState) => {
-    return state.manga.mangaCollection;
+    return state.manga.mangaCollection.collection;
   }
 );
 
 export const selectIsMangaLoading = createSelector(
   selectAuthFeature,
   (state: MangaReducerState) => {
-    return state.manga.loading;
+    return state.manga.mangaCollection.loading;
   }
 );
 
@@ -31,11 +31,3 @@ export const selectMangaSelected = createSelector(
     return state.manga.mangaSelected.mangaSelected;
   }
 );
-
-export const selectMangaById = (mangaId: number) => {
-  return createSelector(selectAuthFeature, (state: MangaReducerState) => {
-    const mangaCollection = state.manga.mangaCollection;
-    const manga = mangaCollection.find((manga) => manga._id === mangaId);
-    return manga;
-  });
-};

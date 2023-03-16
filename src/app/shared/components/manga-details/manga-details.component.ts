@@ -2,17 +2,12 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  Inject,
   AfterViewInit,
-  OnInit,
+  OnDestroy,
 } from '@angular/core';
-import {
-  MatBottomSheetRef,
-  MAT_BOTTOM_SHEET_DATA,
-} from '@angular/material/bottom-sheet';
+import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { Store } from '@ngrx/store';
-import { delay, filter, pipe, take } from 'rxjs';
-import { MangaActions } from 'src/app/core/state/mangas/mangas.actions';
+import { BehaviorSubject, filter, ReplaySubject, take, takeUntil } from 'rxjs';
 import {
   selectIsMangaSelectedLoading,
   selectMangaSelected,
@@ -27,9 +22,10 @@ import { NotificationActions } from 'src/app/core/state/notifications/notificati
   styleUrls: ['./manga-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MangaDetailsComponent implements AfterViewInit {
+export class MangaDetailsComponent implements AfterViewInit, OnDestroy {
   manga$;
   loading$;
+  destroy$ = new ReplaySubject<Boolean>();
   constructor(
     private _store: Store,
     private _matBottomSheetRef: MatBottomSheetRef<MangaDetailsComponent>
@@ -39,17 +35,26 @@ export class MangaDetailsComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.loading$.pipe(filter((bool) => !bool)).subscribe(() =>
-      this.manga$.pipe(take(1)).subscribe((manga) => {
-        if (!manga) {
-          this._matBottomSheetRef.dismiss();
-          this._store.dispatch(
-            NotificationActions.SHOW_WARNING_MESSAGE({
-              message: 'There is no such manga',
-            })
-          );
-        }
-      })
-    );
+    this.loading$
+      .pipe(takeUntil(this.destroy$))
+      .pipe(filter((bool) => !bool))
+      .subscribe(() => {
+        console.log('loading Observable');
+        this.manga$.pipe(take(1)).subscribe((manga) => {
+          if (!manga) {
+            this._matBottomSheetRef.dismiss();
+            this._store.dispatch(
+              NotificationActions.SHOW_WARNING_MESSAGE({
+                message: 'There is no such manga',
+              })
+            );
+          }
+        });
+      });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.complete();
   }
 }

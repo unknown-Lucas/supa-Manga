@@ -20,6 +20,10 @@ export namespace MangaActions {
     }>()
   );
 
+  export const RESET_SELECTED_MANGA = createAction(
+    '[MANGA SELECT] RESET SELECTED MANGA'
+  );
+
   export const SELECT_MANGA_BY_ID_SUCCESS = createAction(
     '[MANGA SELECT] SELECT MANGA BY ID SUCCESS',
     props<{

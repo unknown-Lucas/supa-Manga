@@ -11,6 +11,7 @@ import { Store } from '@ngrx/store';
 import { NotificationActions } from 'src/app/core/state/notifications/notifications.actions';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { MangaActions } from 'src/app/core/state/mangas/mangas.actions';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-manga-card',
@@ -53,7 +54,13 @@ export class MangaCardComponent {
         mangaId: this.manga._id,
       })
     );
-    this._bottomSheet.open(MangaDetailsComponent);
+    this._bottomSheet
+      .open(MangaDetailsComponent)
+      .afterDismissed()
+      .pipe(take(1))
+      .subscribe(() =>
+        this._store.dispatch(MangaActions.RESET_SELECTED_MANGA())
+      );
   }
 
   shareUrl() {
