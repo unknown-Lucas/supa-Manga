@@ -6,20 +6,35 @@ import { NgOptimizedImage } from '@angular/common';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MangaDetailsComponent } from '../manga-details/manga-details.component';
 import { MatButtonModule } from '@angular/material/button';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { Store } from '@ngrx/store';
+import { NotificationActions } from 'src/app/core/state/notifications/notifications.actions';
+import { Clipboard } from '@angular/cdk/clipboard';
+import { MangaActions } from 'src/app/core/state/mangas/mangas.actions';
 
 @Component({
   selector: 'app-manga-card',
   templateUrl: './manga-card.component.html',
   styleUrls: ['./manga-card.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatCardModule, NgOptimizedImage, MatButtonModule],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    NgOptimizedImage,
+    MatButtonModule,
+    ClipboardModule,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MangaCardComponent {
   @Input()
   manga: MangaModel = {} as MangaModel;
 
-  constructor(private _bottomSheet: MatBottomSheet) {}
+  constructor(
+    private _bottomSheet: MatBottomSheet,
+    private _store: Store,
+    private clipboard: Clipboard
+  ) {}
 
   getMangaStateClass(state: string): string {
     const stateDict: { [K: string]: string } = {
@@ -31,7 +46,22 @@ export class MangaCardComponent {
     return stateDict[state];
   }
 
-  read(mangaId: number) {
-    this._bottomSheet.open(MangaDetailsComponent, { data: mangaId });
+  read() {
+    this._store.dispatch(
+      MangaActions.SELECT_MANGA_BY_ID({
+        attributes: [],
+        mangaId: this.manga._id,
+      })
+    );
+    this._bottomSheet.open(MangaDetailsComponent);
+  }
+
+  shareUrl() {
+    this._store.dispatch(
+      NotificationActions.SHOW_OK_MESSAGE({
+        message: 'Succesfully copied to the clipboard!!',
+      })
+    );
+    this.clipboard.copy(`${window.location.host}/mangas/${this.manga._id}`);
   }
 }

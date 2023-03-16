@@ -8,13 +8,10 @@ import {
   selectMangaCollection,
 } from 'src/app/core/state/mangas/mangas.selector';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import {
-  ActivatedRoute,
-  ActivatedRouteSnapshot,
-  RouterModule,
-} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MangaDetailsComponent } from 'src/app/shared/components/manga-details/manga-details.component';
+import { filter, take } from 'rxjs';
 
 @Component({
   selector: 'app-main',
@@ -37,9 +34,19 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._store.dispatch(MangaActions.GET_ALL_MANGAS());
+    const magaAttributes = ['cover', 'description', 'title', 'state', '_id'];
+    this._store.dispatch(
+      MangaActions.GET_MANGAS({ attributes: magaAttributes })
+    );
     const isMangaSelected = this._route.snapshot.paramMap.get('mangaId');
-    if (isMangaSelected)
-      this._bottomSheet.open(MangaDetailsComponent, { data: isMangaSelected });
+    if (isMangaSelected !== null) {
+      this._store.dispatch(
+        MangaActions.SELECT_MANGA_BY_ID({
+          attributes: [],
+          mangaId: Number(isMangaSelected),
+        })
+      );
+      this._bottomSheet.open(MangaDetailsComponent);
+    }
   }
 }

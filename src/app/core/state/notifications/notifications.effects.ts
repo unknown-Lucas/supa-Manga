@@ -12,6 +12,7 @@ export class NotificationEffects {
       map(({ message }) => {
         this._snackbar.open(message, 'Close', {
           duration: 2000,
+          verticalPosition: 'bottom',
           panelClass: ['snackbar-ok'],
         });
         return NotificationActions.DONE();
@@ -25,6 +26,7 @@ export class NotificationEffects {
       map(({ message }) => {
         this._snackbar.open(message, 'Close', {
           duration: 3000,
+          verticalPosition: 'bottom',
           panelClass: ['snackbar-info'],
         });
         return NotificationActions.DONE();
@@ -38,6 +40,7 @@ export class NotificationEffects {
       map(({ message }) => {
         this._snackbar.open(message, 'Close', {
           duration: 3000,
+          verticalPosition: 'bottom',
           panelClass: ['snackbar-error'],
         });
         return NotificationActions.DONE();

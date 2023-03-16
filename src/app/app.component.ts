@@ -9,6 +9,4 @@ import { NavBarComponent } from './shared/components/nav-bar/nav-bar.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  title = 'manga-hub';
-}
+export class AppComponent {}
