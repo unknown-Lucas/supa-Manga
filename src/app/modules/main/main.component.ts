@@ -35,7 +35,14 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const magaAttributes = ['cover', 'description', 'title', 'state', '_id'];
+    const magaAttributes = [
+      'cover',
+      'description',
+      'title',
+      'state',
+      'genre',
+      '_id',
+    ];
     this._store.dispatch(
       MangaActions.GET_MANGAS({ attributes: magaAttributes })
     );
