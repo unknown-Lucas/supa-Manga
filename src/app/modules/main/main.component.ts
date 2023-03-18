@@ -23,7 +23,7 @@ import { filter, take } from 'rxjs';
 export class MainComponent implements OnInit {
   mangasCollection$;
   isMangaLoading$;
-
+  isMangaSelected;
   constructor(
     private _store: Store,
     private _route: ActivatedRoute,
@@ -31,6 +31,7 @@ export class MainComponent implements OnInit {
   ) {
     this.mangasCollection$ = this._store.select(selectMangaCollection);
     this.isMangaLoading$ = this._store.select(selectIsMangaLoading);
+    this.isMangaSelected = this._route.snapshot.paramMap.get('mangaId');
   }
 
   ngOnInit(): void {
@@ -38,12 +39,12 @@ export class MainComponent implements OnInit {
     this._store.dispatch(
       MangaActions.GET_MANGAS({ attributes: magaAttributes })
     );
-    const isMangaSelected = this._route.snapshot.paramMap.get('mangaId');
-    if (isMangaSelected !== null) {
+
+    if (this.isMangaSelected !== null) {
       this._store.dispatch(
         MangaActions.SELECT_MANGA_BY_ID({
           attributes: [],
-          mangaId: Number(isMangaSelected),
+          mangaId: Number(this.isMangaSelected),
         })
       );
       this._bottomSheet

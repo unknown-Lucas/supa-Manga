@@ -10,7 +10,7 @@ export class AuthService {
   constructor(private _http: HttpClient) {}
 
   getUser() {
-    return this._http.get(environment.supabaseUrl + '/auth/v1/user');
+    return this._http.get<userModel>(environment.supabaseUrl + '/auth/v1/user');
   }
 
   singUp(values: { email: string; password: string }) {

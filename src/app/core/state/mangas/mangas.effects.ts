@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, of } from 'rxjs';
-import { MangaModel } from '../../models/manga.model';
 import { MangaService } from '../../services/manga.service';
 import { NotificationActions } from '../notifications/notifications.actions';
 import { MangaActions } from './mangas.actions';
@@ -19,7 +18,10 @@ export class MangaEffects {
           catchError((errorData: any) => {
             return of(
               NotificationActions.SHOW_WARNING_MESSAGE({
-                message: errorData?.error?.error_description ?? errorData?.msg,
+                message:
+                  errorData.error?.msg ??
+                  errorData.error?.message ??
+                  errorData?.error?.error_description,
               })
             );
           })
@@ -41,7 +43,10 @@ export class MangaEffects {
           catchError((errorData: any) => {
             return of(
               NotificationActions.SHOW_WARNING_MESSAGE({
-                message: errorData?.error?.error_description ?? errorData?.msg,
+                message:
+                  errorData.error?.msg ??
+                  errorData.error?.message ??
+                  errorData?.error?.error_description,
               })
             );
           })
