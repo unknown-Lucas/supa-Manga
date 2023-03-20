@@ -47,7 +47,10 @@ export class MainComponent implements OnInit {
       MangaActions.GET_MANGAS({ attributes: magaAttributes })
     );
 
-    if (new RegExp('^[0-9,$]*$').test(this?.isMangaSelected ?? '')) {
+    if (
+      new RegExp('^[0-9,$]*$').test(this?.isMangaSelected ?? '') &&
+      this?.isMangaSelected
+    ) {
       this._store.dispatch(
         MangaActions.SELECT_MANGA_BY_ID({
           attributes: [],
