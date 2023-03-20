@@ -1,0 +1,23 @@
+.mangaAttributes {
+  display: flex;
+}
+
+.mangaData {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.stateDetail {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.mangaCover {
+  float: left;
+  margin: 1vw;
+}
+
+.mangaCard {
+  max-width: 35vw;
+}

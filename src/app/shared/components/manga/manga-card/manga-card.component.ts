@@ -6,12 +6,10 @@ import { NgOptimizedImage } from '@angular/common';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MangaDetailsComponent } from '../manga-details/manga-details.component';
 import { MatButtonModule } from '@angular/material/button';
-import { ClipboardModule } from '@angular/cdk/clipboard';
 import { Store } from '@ngrx/store';
-import { NotificationActions } from 'src/app/core/state/notifications/notifications.actions';
-import { Clipboard } from '@angular/cdk/clipboard';
 import { MangaActions } from 'src/app/core/state/mangas/mangas.actions';
 import { take } from 'rxjs';
+import { shareButtonComponent } from '../../shareButton/shareButton.component';
 
 @Component({
   selector: 'app-manga-card',
@@ -23,7 +21,7 @@ import { take } from 'rxjs';
     MatCardModule,
     NgOptimizedImage,
     MatButtonModule,
-    ClipboardModule,
+    shareButtonComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -31,11 +29,11 @@ export class MangaCardComponent {
   @Input()
   manga: MangaModel = {} as MangaModel;
 
-  constructor(
-    private _bottomSheet: MatBottomSheet,
-    private _store: Store,
-    private clipboard: Clipboard
-  ) {}
+  constructor(private _bottomSheet: MatBottomSheet, private _store: Store) {}
+
+  get mangaUrl() {
+    return `${window.location.host}/mangas/${this.manga._id}`;
+  }
 
   getMangaStateClass(state: string): string {
     const stateDict: { [K: string]: string } = {
@@ -61,14 +59,5 @@ export class MangaCardComponent {
       .subscribe(() =>
         this._store.dispatch(MangaActions.RESET_SELECTED_MANGA())
       );
-  }
-
-  shareUrl() {
-    this._store.dispatch(
-      NotificationActions.SHOW_OK_MESSAGE({
-        message: 'Succesfully copied to the clipboard!!',
-      })
-    );
-    this.clipboard.copy(`${window.location.host}/mangas/${this.manga._id}`);
   }
 }

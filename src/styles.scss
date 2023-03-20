@@ -36,3 +36,27 @@ body {
     --mdc-snackbar-supporting-text-color: #fff;
   }
 }
+
+.ongoing-header-image {
+  background-image: url("https://icones.pro/wp-content/uploads/2021/04/icone-cercle-rempli-vert.png");
+  background-size: cover;
+  float: left;
+}
+
+.cancelled-header-image {
+  background-image: url("https://png.pngtree.com/png-clipart/20201029/ourmid/pngtree-circle-clipart-red-circle-png-image_2381952.jpg");
+  background-size: cover;
+  float: left;
+}
+
+.completed-header-image {
+  background-image: url("https://img2.freepng.es/20180131/roe/kisspng-circle-area-blue-point-angle-circle-png-file-5a71fb3274c0c3.6363676015174193144782.jpg");
+  background-size: cover;
+  float: left;
+}
+
+.hiatus-header-image {
+  background-image: url("https://img.freepik.com/foto-gratis/vista-superior-circulo-amarillo-sobre-fondo-blanco_23-2148209934.jpg");
+  background-size: cover;
+  float: left;
+}

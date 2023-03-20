@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -6,19 +6,28 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject, filter, ReplaySubject, take, takeUntil } from 'rxjs';
+import { filter, ReplaySubject, take, takeUntil } from 'rxjs';
 import {
   selectIsMangaSelectedLoading,
   selectMangaSelected,
 } from 'src/app/core/state/mangas/mangas.selector';
 import { NotificationActions } from 'src/app/core/state/notifications/notifications.actions';
+import { shareButtonComponent } from '../../shareButton/shareButton.component';
 
 @Component({
   selector: 'app-manga-details',
   templateUrl: './manga-details.component.html',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    NgOptimizedImage,
+    MatButtonModule,
+    MatIconModule,
+    shareButtonComponent,
+  ],
   styleUrls: ['./manga-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -26,6 +35,7 @@ export class MangaDetailsComponent implements AfterViewInit, OnDestroy {
   manga$;
   loading$;
   destroy$ = new ReplaySubject<Boolean>();
+
   constructor(
     private _store: Store,
     private _matBottomSheetRef: MatBottomSheetRef<MangaDetailsComponent>
@@ -34,12 +44,15 @@ export class MangaDetailsComponent implements AfterViewInit, OnDestroy {
     this.loading$ = this._store.select(selectIsMangaSelectedLoading);
   }
 
+  getMangaUrl(id: number) {
+    return `${window.location.host}/mangas/${id}`;
+  }
+
   ngAfterViewInit(): void {
     this.loading$
       .pipe(takeUntil(this.destroy$))
       .pipe(filter((bool) => !bool))
       .subscribe(() => {
-        console.log('loading Observable');
         this.manga$.pipe(take(1)).subscribe((manga) => {
           if (!manga) {
             this._matBottomSheetRef.dismiss();
@@ -51,6 +64,16 @@ export class MangaDetailsComponent implements AfterViewInit, OnDestroy {
           }
         });
       });
+  }
+
+  getMangaStateClass(state: string): string {
+    const stateDict: { [K: string]: string } = {
+      ongoing: 'ongoing-header-image',
+      completed: 'completed-header-image',
+      cancelled: 'cancelled-header-image',
+      hiatus: 'hiatus-header-image',
+    };
+    return stateDict[state];
   }
 
   ngOnDestroy() {
