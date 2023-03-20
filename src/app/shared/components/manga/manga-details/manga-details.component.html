@@ -2,6 +2,7 @@
   <b>
     <h1 style="text-align: center">{{ (manga$ | async)?.title }}</h1>
   </b>
+  <hr />
   <div>
     <div class="mangaAttributes">
       <img
@@ -33,7 +34,7 @@
         <p><b>Created At:</b> {{ (manga$ | async)?.creationDate | date }}</p>
         <p><b>Updated At:</b> {{ (manga$ | async)?.updatedAt | date }}</p>
         <br />
-        <div>
+        <div class="actions">
           <app-share-button
             style="margin-right: 10px"
             [url]="getMangaUrl((manga$ | async)?._id ?? 0)"

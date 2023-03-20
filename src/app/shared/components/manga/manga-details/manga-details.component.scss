@@ -14,10 +14,18 @@
 }
 
 .mangaCover {
+  border: 5px solid;
+  border-color: #673ab7;
   float: left;
   margin: 1vw;
 }
 
 .mangaCard {
   max-width: 35vw;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
