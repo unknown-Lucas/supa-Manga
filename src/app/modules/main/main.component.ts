@@ -2,16 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MangaCardComponent } from 'src/app/shared/components/manga/manga-card/manga-card.component';
 import { Store } from '@ngrx/store';
-import { MangaActions } from 'src/app/core/state/mangas/mangas.actions';
-import {
-  selectIsMangaLoading,
-  selectMangaCollection,
-} from 'src/app/core/state/mangas/mangas.selector';
+import { MangaActions } from 'src/app/core/state/mangas/mangas/mangas.actions';
+
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ActivatedRoute } from '@angular/router';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { take } from 'rxjs';
 import { MangaDetailsComponent } from 'src/app/shared/components/manga/manga-details/manga-details.component';
+import {
+  selectIsMangaLoading,
+  selectMangaCollection,
+} from 'src/app/core/state/mangas/mangas/mangas.selector';
 
 @Component({
   selector: 'app-main',

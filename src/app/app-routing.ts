@@ -2,9 +2,11 @@ import { Routes } from '@angular/router';
 import { provideEffects } from '@ngrx/effects';
 import { provideState } from '@ngrx/store';
 import { AuthService } from './core/services/auth.service';
+import { ChapterService } from './core/services/chapters.service';
 import { MangaService } from './core/services/manga.service';
-import { MangaEffects } from './core/state/mangas/mangas.effects';
-import { MANGA_REDUCERS } from './core/state/mangas/mangas.state';
+import { ChapterEffects } from './core/state/mangas/chapters/chapters.efffects';
+import { MangaEffects } from './core/state/mangas/mangas/mangas.effects';
+import { MANGA_REDUCERS } from './core/state/mangas/mangas/mangas.state';
 
 export const routes: Routes = [
   {
@@ -16,7 +18,8 @@ export const routes: Routes = [
     path: 'mangas',
     providers: [
       MangaService,
-      provideEffects([MangaEffects]),
+      ChapterService,
+      provideEffects([MangaEffects, ChapterEffects]),
       provideState('MangaModule', MANGA_REDUCERS),
     ],
     loadComponent: () =>
@@ -26,7 +29,8 @@ export const routes: Routes = [
     path: 'mangas/:mangaId',
     providers: [
       MangaService,
-      provideEffects([MangaEffects]),
+      ChapterService,
+      provideEffects([MangaEffects, ChapterEffects]),
       provideState('MangaModule', MANGA_REDUCERS),
     ],
     loadComponent: () =>

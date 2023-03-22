@@ -1,17 +1,15 @@
 import { createReducer, on } from '@ngrx/store';
-import { MangaModel } from '../../models/manga.model';
+import { MangaModel } from 'src/app/core/models/manga.model';
 import { MangaActions } from './mangas.actions';
 
 export interface MangaState {
   mangaCollection: { collection: MangaModel[]; loading: boolean };
   mangaSelected: { mangaSelected?: MangaModel; loading: boolean };
-  mangaChapters: { chapters: []; loading: boolean };
 }
 
 const initialState: MangaState = {
   mangaCollection: { collection: [], loading: false },
   mangaSelected: { mangaSelected: undefined, loading: false },
-  mangaChapters: { chapters: [], loading: false },
 };
 
 export const mangaReducer = createReducer<MangaState>(

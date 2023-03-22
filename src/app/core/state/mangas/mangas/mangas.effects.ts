@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, of } from 'rxjs';
-import { MangaService } from '../../services/manga.service';
-import { NotificationActions } from '../notifications/notifications.actions';
+import { MangaService } from 'src/app/core/services/manga.service';
+import { NotificationActions } from '../../notifications/notifications.actions';
+
 import { MangaActions } from './mangas.actions';
 
 @Injectable()

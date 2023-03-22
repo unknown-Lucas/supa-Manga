@@ -3,7 +3,7 @@ export interface userModel {
   token_type: string;
   expires_in: number;
   refresh_token: string;
-  user?: User | userModel;
+  user?: User;
 }
 
 export interface User {

@@ -7,7 +7,7 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MangaDetailsComponent } from '../manga-details/manga-details.component';
 import { MatButtonModule } from '@angular/material/button';
 import { Store } from '@ngrx/store';
-import { MangaActions } from 'src/app/core/state/mangas/mangas.actions';
+import { MangaActions } from 'src/app/core/state/mangas/mangas/mangas.actions';
 import { take } from 'rxjs';
 import { shareButtonComponent } from '../../shareButton/shareButton.component';
 

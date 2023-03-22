@@ -10,13 +10,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Store } from '@ngrx/store';
 import { filter, ReplaySubject, take, takeUntil } from 'rxjs';
-import {
-  selectIsMangaSelectedLoading,
-  selectMangaSelected,
-} from 'src/app/core/state/mangas/mangas.selector';
+
 import { NotificationActions } from 'src/app/core/state/notifications/notifications.actions';
 import { shareButtonComponent } from '../../shareButton/shareButton.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import {
+  selectIsMangaSelectedLoading,
+  selectMangaSelected,
+} from 'src/app/core/state/mangas/mangas/mangas.selector';
+import { ChapterActions } from 'src/app/core/state/mangas/chapters/chapters.actions';
 
 @Component({
   selector: 'app-manga-details',
@@ -58,12 +60,18 @@ export class MangaDetailsComponent implements AfterViewInit, OnDestroy {
         this.manga$.pipe(take(1)).subscribe((manga) => {
           if (!manga) {
             this._matBottomSheetRef.dismiss();
-            this._store.dispatch(
+            return this._store.dispatch(
               NotificationActions.SHOW_WARNING_MESSAGE({
                 message: 'There is no such manga',
               })
             );
           }
+          return this._store.dispatch(
+            ChapterActions.GET_MANGA_CHAPTERS({
+              mangaId: manga?._id ?? 0,
+              attributes: [],
+            })
+          );
         });
       });
   }

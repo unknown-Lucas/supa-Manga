@@ -55,7 +55,7 @@ export const AuthReducer = createReducer<userModel>(
     }
     return {
       ...state,
-      user: user?.user ?? user,
+      user: (user?.user ?? user) as any,
     };
   })
 );

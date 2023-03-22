@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { MangaModel } from '../../models/manga.model';
+import { MangaModel } from '../../../models/manga.model';
 
 export namespace MangaActions {
   export const GET_MANGAS = createAction(
