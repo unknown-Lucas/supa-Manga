@@ -15,11 +15,14 @@ import { NotificationActions } from 'src/app/core/state/notifications/notificati
 import { shareButtonComponent } from '../../shareButton/shareButton.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import {
+  selectisMangaChaptersLoading,
   selectIsMangaSelectedLoading,
+  selectMangaChapters,
   selectMangaSelected,
 } from 'src/app/core/state/mangas/mangas/mangas.selector';
 import { ChapterActions } from 'src/app/core/state/mangas/chapters/chapters.actions';
 import { MangaActions } from 'src/app/core/state/mangas/mangas/mangas.actions';
+import { MangaChaptersListComponent } from './components/manga-chapters-list/manga-chapters-list.component';
 
 @Component({
   selector: 'app-manga-details',
@@ -32,12 +35,15 @@ import { MangaActions } from 'src/app/core/state/mangas/mangas/mangas.actions';
     MatIconModule,
     shareButtonComponent,
     MatProgressBarModule,
+    MangaChaptersListComponent,
   ],
   styleUrls: ['./manga-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MangaDetailsComponent implements AfterViewInit, OnDestroy {
   manga$;
+  mangaChapters$;
+  mangaChaptersLoaging$;
   loading$;
   destroy$ = new ReplaySubject<Boolean>();
 
@@ -46,6 +52,10 @@ export class MangaDetailsComponent implements AfterViewInit, OnDestroy {
     private _matBottomSheetRef: MatBottomSheetRef<MangaDetailsComponent>
   ) {
     this.manga$ = this._store.select(selectMangaSelected);
+    this.mangaChapters$ = this._store.select(selectMangaChapters);
+    this.mangaChaptersLoaging$ = this._store.select(
+      selectisMangaChaptersLoading
+    );
     this.loading$ = this._store.select(selectIsMangaSelectedLoading);
   }
 

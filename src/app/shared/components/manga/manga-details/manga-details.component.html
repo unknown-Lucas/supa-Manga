@@ -51,6 +51,10 @@
       <p>{{ (manga$ | async)?.description ?? "" }}</p>
     </div>
     <h2>Chapters:</h2>
+    <app-manga-chapters-list
+      *ngIf="!(mangaChaptersLoaging$ | async)"
+      [chapters]="(mangaChapters$ | async) ?? []"
+    ></app-manga-chapters-list>
   </span>
   <span *ngIf="loading$ | async">
     <mat-progress-bar

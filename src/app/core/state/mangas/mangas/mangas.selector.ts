@@ -31,3 +31,17 @@ export const selectMangaSelected = createSelector(
     return state.manga.mangaSelected.mangaSelected;
   }
 );
+
+export const selectMangaChapters = createSelector(
+  selectAuthFeature,
+  (state: MangaReducerState) => {
+    return state.chapters.chapterCollection.collection;
+  }
+);
+
+export const selectisMangaChaptersLoading = createSelector(
+  selectAuthFeature,
+  (state: MangaReducerState) => {
+    return state.chapters.chapterCollection.loading;
+  }
+);
