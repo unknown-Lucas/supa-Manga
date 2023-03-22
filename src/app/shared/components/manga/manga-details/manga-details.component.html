@@ -1,53 +1,60 @@
 <div class="mangaCard">
-  <b>
-    <h1 style="text-align: center">{{ (manga$ | async)?.title }}</h1>
-  </b>
-  <hr />
-  <div>
-    <div class="mangaAttributes">
-      <img
-        class="mangaCover"
-        [attr.src]="(manga$ | async)?.cover"
-        width="250"
-        height="400"
-        loading="eager"
-        [alt]="(manga$ | async)?.title + 'cover'"
-      />
-      <div class="mangaData">
-        <p class="stateDetail">
-          <b>State: </b>
-          {{ (manga$ | async)?.state }}
-          <span
-            style="height: 20px; width: 20px"
-            [ngClass]="getMangaStateClass((manga$ | async)?.state ?? 'ongoing')"
-          ></span>
-        </p>
-        <br />
-        <p><b>Genre:</b> {{ (manga$ | async)?.genre ?? "none" }}</p>
-        <p>
-          <b>Content type:</b> {{ (manga$ | async)?.contentRating ?? "none" }}
-        </p>
-        <br />
-        <p><b>Author:</b> {{ (manga$ | async)?.author }}</p>
-        <p><b>Artist:</b> {{ (manga$ | async)?.artist }}</p>
-        <br />
-        <p><b>Created At:</b> {{ (manga$ | async)?.creationDate | date }}</p>
-        <p><b>Updated At:</b> {{ (manga$ | async)?.updatedAt | date }}</p>
-        <br />
-        <div class="actions">
-          <app-share-button
-            style="margin-right: 10px"
-            [url]="getMangaUrl((manga$ | async)?._id ?? 0)"
-          ></app-share-button>
-          <button mat-icon-button>
-            <mat-icon>favorite</mat-icon>
-          </button>
+  <span *ngIf="!(loading$ | async)">
+    <b>
+      <h1 style="text-align: center">{{ (manga$ | async)?.title }}</h1>
+    </b>
+    <hr />
+    <div>
+      <div class="mangaAttributes">
+        <img
+          class="mangaCover"
+          [attr.src]="(manga$ | async)?.cover"
+          loading="eager"
+          [alt]="(manga$ | async)?.title + 'cover'"
+        />
+        <div class="mangaData">
+          <p class="stateDetail">
+            <b>State: </b>
+            {{ (manga$ | async)?.state }}
+            <span
+              style="height: 20px; width: 20px"
+              [ngClass]="
+                getMangaStateClass((manga$ | async)?.state ?? 'ongoing')
+              "
+            ></span>
+          </p>
+          <br />
+          <p><b>Genre:</b> {{ (manga$ | async)?.genre ?? "none" }}</p>
+          <p>
+            <b>Content type:</b> {{ (manga$ | async)?.contentRating ?? "none" }}
+          </p>
+          <br />
+          <p><b>Author:</b> {{ (manga$ | async)?.author }}</p>
+          <p><b>Artist:</b> {{ (manga$ | async)?.artist }}</p>
+          <br />
+          <p><b>Created At:</b> {{ (manga$ | async)?.creationDate | date }}</p>
+          <p><b>Updated At:</b> {{ (manga$ | async)?.updatedAt | date }}</p>
+          <br />
+          <div class="actions">
+            <app-share-button
+              [url]="getMangaUrl((manga$ | async)?._id ?? 0)"
+            ></app-share-button>
+            <button mat-icon-button>
+              <mat-icon>favorite</mat-icon>
+            </button>
+          </div>
         </div>
       </div>
+      <b>description:</b>
+      <br />
+      <p>{{ (manga$ | async)?.description ?? "" }}</p>
     </div>
-    <b>description:</b>
-    <br />
-    <p>{{ (manga$ | async)?.description ?? "" }}</p>
-  </div>
-  <h2>Chapters:</h2>
+    <h2>Chapters:</h2>
+  </span>
+  <span *ngIf="loading$ | async">
+    <mat-progress-bar
+      mode="indeterminate"
+      class="progressBar"
+    ></mat-progress-bar
+  ></span>
 </div>

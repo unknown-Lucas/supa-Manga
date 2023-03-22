@@ -16,6 +16,7 @@ import {
 } from 'src/app/core/state/mangas/mangas.selector';
 import { NotificationActions } from 'src/app/core/state/notifications/notifications.actions';
 import { shareButtonComponent } from '../../shareButton/shareButton.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-manga-details',
@@ -27,6 +28,7 @@ import { shareButtonComponent } from '../../shareButton/shareButton.component';
     MatButtonModule,
     MatIconModule,
     shareButtonComponent,
+    MatProgressBarModule,
   ],
   styleUrls: ['./manga-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
