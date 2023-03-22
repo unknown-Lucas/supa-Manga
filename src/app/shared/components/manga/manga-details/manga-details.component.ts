@@ -19,6 +19,7 @@ import {
   selectMangaSelected,
 } from 'src/app/core/state/mangas/mangas/mangas.selector';
 import { ChapterActions } from 'src/app/core/state/mangas/chapters/chapters.actions';
+import { MangaActions } from 'src/app/core/state/mangas/mangas/mangas.actions';
 
 @Component({
   selector: 'app-manga-details',
@@ -89,5 +90,6 @@ export class MangaDetailsComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.complete();
+    this._store.dispatch(MangaActions.RESET_SELECTED_MANGA());
   }
 }

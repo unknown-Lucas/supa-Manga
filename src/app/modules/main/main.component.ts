@@ -58,13 +58,7 @@ export class MainComponent implements OnInit {
           mangaId: Number(this.isMangaSelected),
         })
       );
-      this._bottomSheet
-        .open(MangaDetailsComponent)
-        .afterDismissed()
-        .pipe(take(1))
-        .subscribe(() =>
-          this._store.dispatch(MangaActions.RESET_SELECTED_MANGA())
-        );
+      this._bottomSheet.open(MangaDetailsComponent);
     }
   }
 }

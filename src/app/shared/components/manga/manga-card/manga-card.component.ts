@@ -52,12 +52,6 @@ export class MangaCardComponent {
         mangaId: this.manga._id,
       })
     );
-    this._bottomSheet
-      .open(MangaDetailsComponent)
-      .afterDismissed()
-      .pipe(take(1))
-      .subscribe(() =>
-        this._store.dispatch(MangaActions.RESET_SELECTED_MANGA())
-      );
+    this._bottomSheet.open(MangaDetailsComponent);
   }
 }
