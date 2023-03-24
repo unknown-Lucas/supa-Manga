@@ -1,9 +1,19 @@
 <mat-accordion>
-  <mat-expansion-panel *ngFor="let chapter of chapters">
+  <mat-expansion-panel *ngFor="let chapter of chapterCodes; let i = index">
     <mat-expansion-panel-header>
-      <mat-panel-title> Self aware panel </mat-panel-title>
-      <mat-panel-description> </mat-panel-description>
+      <mat-panel-title>{{ i }}</mat-panel-title>
     </mat-expansion-panel-header>
-    <p>I'm visible because I am open</p>
+    <div
+      style="display: flex; justify-content: space-around; align-items: center"
+    >
+      <button mat-button>non readed yet</button>
+      <button
+        mat-fab
+        color="primary"
+        aria-label="Example icon button with a delete icon"
+      >
+        <mat-icon>open_in_browser</mat-icon>
+      </button>
+    </div>
   </mat-expansion-panel>
 </mat-accordion>

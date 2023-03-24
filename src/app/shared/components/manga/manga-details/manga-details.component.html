@@ -24,10 +24,8 @@
             ></span>
           </p>
           <br />
-          <p><b>Genre:</b> {{ (manga$ | async)?.genre ?? "none" }}</p>
-          <p>
-            <b>Content type:</b> {{ (manga$ | async)?.contentRating ?? "none" }}
-          </p>
+          <p><b>Genre:</b> {{ (manga$ | async)?.genre }}</p>
+          <p><b>Content type:</b> {{ (manga$ | async)?.contentRating }}</p>
           <br />
           <p><b>Author:</b> {{ (manga$ | async)?.author }}</p>
           <p><b>Artist:</b> {{ (manga$ | async)?.artist }}</p>
@@ -53,7 +51,7 @@
     <h2>Chapters:</h2>
     <app-manga-chapters-list
       *ngIf="!(mangaChaptersLoaging$ | async)"
-      [chapters]="(mangaChapters$ | async) ?? []"
+      [chapters]="mangaChapters$ | async"
     ></app-manga-chapters-list>
   </span>
   <span *ngIf="loading$ | async">

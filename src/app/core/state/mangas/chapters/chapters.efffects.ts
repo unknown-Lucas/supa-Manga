@@ -24,7 +24,7 @@ export class ChapterEffects {
                 );
             });
             return ChapterActions.GET_MANGA_CHAPTERS_SUCCESS({
-              chaptersCollection: data,
+              chapter: data.at(0),
             });
           }),
           catchError((errorData: any) => {

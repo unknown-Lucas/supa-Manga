@@ -35,7 +35,7 @@ export const selectMangaSelected = createSelector(
 export const selectMangaChapters = createSelector(
   selectAuthFeature,
   (state: MangaReducerState) => {
-    return state.chapters.chapterCollection.collection;
+    return state.chapters.chapterCollection.chapter;
   }
 );
 

@@ -4,11 +4,13 @@ import { MangaActions } from '../mangas/mangas.actions';
 import { ChapterActions } from './chapters.actions';
 
 export interface ChapterState {
-  chapterCollection: { collection: ChapterModel[]; loading: boolean };
+  chapterCollection: { chapter?: ChapterModel; loading: boolean };
 }
 
 const initialState: ChapterState = {
-  chapterCollection: { collection: [], loading: false },
+  chapterCollection: {
+    loading: false,
+  },
 };
 
 export const chapterReducer = createReducer<ChapterState>(
@@ -22,25 +24,22 @@ export const chapterReducer = createReducer<ChapterState>(
       },
     };
   }),
-  on(
-    ChapterActions.GET_MANGA_CHAPTERS_SUCCESS,
-    (state, { chaptersCollection }) => {
-      return {
-        ...initialState,
-        chapterCollection: {
-          ...state.chapterCollection,
-          collection: chaptersCollection,
-          loading: false,
-        },
-      };
-    }
-  ),
-  on(MangaActions.RESET_SELECTED_MANGA, (state) => {
+  on(ChapterActions.GET_MANGA_CHAPTERS_SUCCESS, (state, { chapter }) => {
     return {
       ...initialState,
       chapterCollection: {
         ...state.chapterCollection,
-        collection: [],
+        chapter: chapter,
+        loading: false,
+      },
+    };
+  }),
+  on(MangaActions.RESET_SELECTED_MANGA, (state) => {
+    return {
+      ...initialState,
+      c: {
+        ...state.chapterCollection,
+        chapter: undefined,
         loading: false,
       },
     };
