@@ -1,14 +1,13 @@
 import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
 import { Store } from '@ngrx/store';
 import { NotificationActions } from 'src/app/core/state/notifications/notifications.actions';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { modules } from './m';
 
 @Component({
   selector: 'app-share-button',
   standalone: true,
-  imports: [CommonModule, MatButtonModule],
+  imports: [...modules],
   template: ` <button mat-raised-button (click)="shareUrl()">SHARE</button>`,
 })
 export class shareButtonComponent {

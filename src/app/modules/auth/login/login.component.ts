@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
           message: 'You are already logged In',
         })
       );
-      this._router.navigate(['/mangas']);
+      this._router.navigate(['/home']);
     }
   }
 }

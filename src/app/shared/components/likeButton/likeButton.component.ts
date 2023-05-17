@@ -1,13 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
 import { Store } from '@ngrx/store';
-import { MatIconModule } from '@angular/material/icon';
+import { modules } from './m';
 
 @Component({
   selector: 'app-like-button',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatIconModule],
+  imports: [...modules],
   template: ` <button
     mat-icon-button
     (click)="likeManga()"

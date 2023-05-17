@@ -1,10 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MangaCardComponent } from 'src/app/shared/components/manga/manga-card/manga-card.component';
 import { Store } from '@ngrx/store';
 import { MangaActions } from 'src/app/core/state/mangas/mangas/mangas.actions';
-
-import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ActivatedRoute } from '@angular/router';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MangaDetailsComponent } from 'src/app/shared/components/manga/manga-details/manga-details.component';
@@ -12,10 +8,11 @@ import {
   selectIsMangaLoading,
   selectMangaCollection,
 } from 'src/app/core/state/mangas/mangas/mangas.selectors';
+import { modules } from './m';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, MangaCardComponent, MatProgressBarModule],
+  imports: [...modules],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],

@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ChapterActions } from 'src/app/core/state/mangas/chapters/chapters.actions';
@@ -9,21 +8,13 @@ import {
   selectMangaChapters,
   selectisMangaChaptersLoading,
 } from 'src/app/core/state/mangas/mangas/mangas.selectors';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { BehaviorSubject, ReplaySubject, filter, take, takeUntil } from 'rxjs';
+import { BehaviorSubject, filter, take } from 'rxjs';
 import { MangaActions } from 'src/app/core/state/mangas/mangas/mangas.actions';
+import { modules } from './m';
 
 @Component({
   standalone: true,
-  imports: [
-    CommonModule,
-    NgOptimizedImage,
-    MatProgressBarModule,
-    MatButtonModule,
-    MatIconModule,
-  ],
+  imports: [...modules],
   templateUrl: './reader.component.html',
   styleUrls: ['./reader.component.scss'],
 })
