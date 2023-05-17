@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AuthActions } from 'src/app/core/state/auth/auth.actions';
 import { NotificationActions } from 'src/app/core/state/notifications/notifications.actions';
 import { modules } from '../m';
+import { AuthActions } from 'src/app/core/state/auth/auth/auth.actions';
 
 @Component({
   selector: 'app-login',

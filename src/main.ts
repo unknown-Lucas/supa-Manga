@@ -9,11 +9,12 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { routes } from './app/app-routing';
 import { AppComponent } from './app/app.component';
 import { SupabaseInterceptor } from './app/core/interceptors/supabase.interceptor';
-import { AuthEffects } from './app/core/state/auth/auth.effects';
-import { AUTH_REDUCERS } from './app/core/state/auth/auth.state';
+import { AuthEffects } from './app/core/state/auth/auth/auth.effects';
+
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NotificationEffects } from './app/core/state/notifications/notifications.effects';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { AUTH_REDUCERS } from './app/core/state/auth/auth/auth.state';
 
 bootstrapApplication(AppComponent, {
   providers: [

@@ -12,4 +12,5 @@ export interface MangaModel {
   artist: string;
   author: string;
   cover: string;
+  liked: boolean;
 }

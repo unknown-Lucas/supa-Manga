@@ -22,7 +22,6 @@ export class shareButtonComponent {
         message: 'Succesfully copied to the clipboard!!',
       })
     );
-    console.log(window.location);
     this.clipboard.copy(this.url);
   }
 }

@@ -6,29 +6,19 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
 import { MangaModel } from 'src/app/core/models/manga.model';
-import { NgOptimizedImage } from '@angular/common';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MangaDetailsComponent } from '../manga-details/manga-details.component';
-import { MatButtonModule } from '@angular/material/button';
 import { Store } from '@ngrx/store';
 import { MangaActions } from 'src/app/core/state/mangas/mangas/mangas.actions';
-import { shareButtonComponent } from '../../shareButton/shareButton.component';
-import { take } from 'rxjs';
+import { modules } from './m';
 
 @Component({
   selector: 'app-manga-card',
   templateUrl: './manga-card.component.html',
   styleUrls: ['./manga-card.component.scss'],
   standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    NgOptimizedImage,
-    MatButtonModule,
-    shareButtonComponent,
-  ],
+  imports: [...modules],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MangaCardComponent {

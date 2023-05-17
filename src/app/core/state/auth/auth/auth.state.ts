@@ -1,6 +1,6 @@
 import { ActionReducerMap } from '@ngrx/store';
-import { userModel } from '../../models/auth.model';
 import { AuthReducer } from './auth.reducer';
+import { userModel } from 'src/app/core/models/auth.model';
 
 export interface AuthReducerState {
   user: userModel;

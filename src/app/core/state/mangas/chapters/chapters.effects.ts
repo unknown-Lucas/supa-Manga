@@ -4,9 +4,9 @@ import { Store } from '@ngrx/store';
 import { catchError, map, mergeMap, of, take } from 'rxjs';
 import { ChapterModel } from 'src/app/core/models/chapters.model';
 import { ChapterService } from 'src/app/core/services/chapters.service';
-import { isUserLogged } from '../../auth/auth.selectors';
 import { NotificationActions } from '../../notifications/notifications.actions';
 import { ChapterActions } from './chapters.actions';
+import { isUserLogged } from '../../auth/auth/auth.selectors';
 
 @Injectable()
 export class ChapterEffects {

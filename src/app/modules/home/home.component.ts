@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MangaCardComponent } from 'src/app/shared/components/manga/manga-card/manga-card.component';
 import { Store } from '@ngrx/store';
@@ -16,6 +16,7 @@ import {
 @Component({
   standalone: true,
   imports: [CommonModule, MangaCardComponent, MatProgressBarModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })

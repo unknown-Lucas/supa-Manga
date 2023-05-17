@@ -10,3 +10,10 @@ export const isUserLogged = createSelector(
     return state.user.user?.id ? true : false;
   }
 );
+
+export const selectActualUserId = createSelector(
+  selectAuthFeature,
+  (state: AuthReducerState) => {
+    return state.user.user.id;
+  }
+);

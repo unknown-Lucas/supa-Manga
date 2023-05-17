@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AuthActions } from './core/state/auth/auth.actions';
 import { NavBarComponent } from './shared/components/nav-bar/nav-bar.component';
+import { AuthActions } from './core/state/auth/auth/auth.actions';
 
 @Component({
   selector: 'app-root',

@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
-import { User, userModel } from '../../models/auth.model';
 import { AuthActions } from './auth.actions';
+import { User, userModel } from 'src/app/core/models/auth.model';
 
 const initialState: userModel = {
   access_token: '',

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { AuthActions } from 'src/app/core/state/auth/auth.actions';
 import { modules } from '../m';
+import { AuthActions } from 'src/app/core/state/auth/auth/auth.actions';
 
 @Component({
   selector: 'app-sing-up',

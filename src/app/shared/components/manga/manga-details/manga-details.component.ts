@@ -1,4 +1,3 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -6,35 +5,24 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { Store } from '@ngrx/store';
 import { filter, ReplaySubject, take, takeUntil } from 'rxjs';
 
 import { NotificationActions } from 'src/app/core/state/notifications/notifications.actions';
-import { shareButtonComponent } from '../../shareButton/shareButton.component';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
 import {
   selectisMangaChaptersLoading,
   selectIsMangaSelectedLoading,
   selectMangaChapters,
   selectMangaSelected,
 } from 'src/app/core/state/mangas/mangas/mangas.selectors';
-import { MangaChaptersListComponent } from './components/manga-chapters-list/manga-chapters-list.component';
+import { modules } from './m';
+import { selectActualUserId } from 'src/app/core/state/auth/auth/auth.selectors';
 
 @Component({
   selector: 'app-manga-details',
   templateUrl: './manga-details.component.html',
   standalone: true,
-  imports: [
-    CommonModule,
-    NgOptimizedImage,
-    MatButtonModule,
-    MatIconModule,
-    shareButtonComponent,
-    MatProgressBarModule,
-    MangaChaptersListComponent,
-  ],
+  imports: [...modules],
   styleUrls: ['./manga-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -43,6 +31,7 @@ export class MangaDetailsComponent implements AfterViewInit, OnDestroy {
   mangaChapters$;
   mangaChaptersLoading$;
   loading$;
+  actualUserId$;
   destroy$ = new ReplaySubject<Boolean>();
 
   constructor(
@@ -54,6 +43,7 @@ export class MangaDetailsComponent implements AfterViewInit, OnDestroy {
     this.mangaChaptersLoading$ = this._store.select(
       selectisMangaChaptersLoading
     );
+    this.actualUserId$ = this._store.select(selectActualUserId);
     this.loading$ = this._store.select(selectIsMangaSelectedLoading);
   }
 
@@ -77,6 +67,11 @@ export class MangaDetailsComponent implements AfterViewInit, OnDestroy {
           }
         });
       });
+  }
+
+  likeManga() {
+    let _id = null;
+    this.manga$.pipe(take(1)).subscribe((a) => (_id = a?._id ?? 0));
   }
 
   getMangaStateClass(state: string): string {
