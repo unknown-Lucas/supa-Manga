@@ -48,7 +48,7 @@ export class MangaDetailsComponent implements AfterViewInit, OnDestroy {
   }
 
   getMangaUrl(id: number) {
-    return `${window.location.host}/mangas/${id}`;
+    return `${window.location.host}/home/${id}`;
   }
 
   ngAfterViewInit(): void {

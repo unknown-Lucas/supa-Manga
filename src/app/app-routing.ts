@@ -15,7 +15,7 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'mangas',
+    path: 'home',
     providers: [
       MangaService,
       ChapterService,
@@ -26,7 +26,7 @@ export const routes: Routes = [
       import('./modules/home/home.component').then((mod) => mod.HomeComponent),
   },
   {
-    path: 'mangas/:mangaId',
+    path: 'home/:mangaId',
     providers: [
       MangaService,
       ChapterService,
