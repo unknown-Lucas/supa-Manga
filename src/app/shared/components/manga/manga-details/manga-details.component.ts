@@ -19,9 +19,7 @@ import {
   selectIsMangaSelectedLoading,
   selectMangaChapters,
   selectMangaSelected,
-} from 'src/app/core/state/mangas/mangas/mangas.selector';
-import { ChapterActions } from 'src/app/core/state/mangas/chapters/chapters.actions';
-import { MangaActions } from 'src/app/core/state/mangas/mangas/mangas.actions';
+} from 'src/app/core/state/mangas/mangas/mangas.selectors';
 import { MangaChaptersListComponent } from './components/manga-chapters-list/manga-chapters-list.component';
 
 @Component({
@@ -43,7 +41,7 @@ import { MangaChaptersListComponent } from './components/manga-chapters-list/man
 export class MangaDetailsComponent implements AfterViewInit, OnDestroy {
   manga$;
   mangaChapters$;
-  mangaChaptersLoaging$;
+  mangaChaptersLoading$;
   loading$;
   destroy$ = new ReplaySubject<Boolean>();
 
@@ -53,7 +51,7 @@ export class MangaDetailsComponent implements AfterViewInit, OnDestroy {
   ) {
     this.manga$ = this._store.select(selectMangaSelected);
     this.mangaChapters$ = this._store.select(selectMangaChapters);
-    this.mangaChaptersLoaging$ = this._store.select(
+    this.mangaChaptersLoading$ = this._store.select(
       selectisMangaChaptersLoading
     );
     this.loading$ = this._store.select(selectIsMangaSelectedLoading);
@@ -77,12 +75,6 @@ export class MangaDetailsComponent implements AfterViewInit, OnDestroy {
               })
             );
           }
-          return this._store.dispatch(
-            ChapterActions.GET_MANGA_CHAPTERS({
-              mangaId: manga?._id ?? 0,
-              attributes: [],
-            })
-          );
         });
       });
   }
@@ -100,6 +92,5 @@ export class MangaDetailsComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.complete();
-    this._store.dispatch(MangaActions.RESET_SELECTED_MANGA());
   }
 }

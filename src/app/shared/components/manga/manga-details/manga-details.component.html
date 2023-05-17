@@ -50,8 +50,9 @@
     </div>
     <h2>Chapters:</h2>
     <app-manga-chapters-list
-      *ngIf="!(mangaChaptersLoaging$ | async)"
+      *ngIf="!(mangaChaptersLoading$ | async)"
       [chapters]="mangaChapters$ | async"
+      [mangaId]="(manga$ | async)?._id"
     ></app-manga-chapters-list>
   </span>
   <span *ngIf="loading$ | async">

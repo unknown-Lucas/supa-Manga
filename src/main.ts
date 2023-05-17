@@ -9,7 +9,7 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { routes } from './app/app-routing';
 import { AppComponent } from './app/app.component';
 import { SupabaseInterceptor } from './app/core/interceptors/supabase.interceptor';
-import { AuthEffects } from './app/core/state/auth/auth.efffects';
+import { AuthEffects } from './app/core/state/auth/auth.effects';
 import { AUTH_REDUCERS } from './app/core/state/auth/auth.state';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NotificationEffects } from './app/core/state/notifications/notifications.effects';

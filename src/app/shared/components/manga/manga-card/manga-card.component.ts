@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MangaModel } from 'src/app/core/models/manga.model';
 import { NgOptimizedImage } from '@angular/common';
@@ -9,6 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { Store } from '@ngrx/store';
 import { MangaActions } from 'src/app/core/state/mangas/mangas/mangas.actions';
 import { shareButtonComponent } from '../../shareButton/shareButton.component';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-manga-card',
@@ -27,6 +34,8 @@ import { shareButtonComponent } from '../../shareButton/shareButton.component';
 export class MangaCardComponent {
   @Input()
   manga: MangaModel = {} as MangaModel;
+  @Output()
+  openMangaDetails = new EventEmitter<number>();
 
   constructor(private _bottomSheet: MatBottomSheet, private _store: Store) {}
 

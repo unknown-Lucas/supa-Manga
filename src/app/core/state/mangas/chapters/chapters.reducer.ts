@@ -5,11 +5,19 @@ import { ChapterActions } from './chapters.actions';
 
 export interface ChapterState {
   chapterCollection: { chapter?: ChapterModel; loading: boolean };
+  selectedChapter: {
+    loading: boolean;
+    images: string[];
+  };
 }
 
 const initialState: ChapterState = {
   chapterCollection: {
     loading: false,
+  },
+  selectedChapter: {
+    loading: false,
+    images: [],
   },
 };
 
@@ -17,7 +25,7 @@ export const chapterReducer = createReducer<ChapterState>(
   initialState,
   on(ChapterActions.GET_MANGA_CHAPTERS, (state) => {
     return {
-      ...initialState,
+      ...state,
       chapterCollection: {
         ...state.chapterCollection,
         loading: true,
@@ -26,22 +34,47 @@ export const chapterReducer = createReducer<ChapterState>(
   }),
   on(ChapterActions.GET_MANGA_CHAPTERS_SUCCESS, (state, { chapter }) => {
     return {
-      ...initialState,
+      ...state,
       chapterCollection: {
         ...state.chapterCollection,
-        chapter: chapter,
+        chapter: {
+          ...chapter,
+          chapterCodes: chapter?.chapterCodes
+            ? JSON.parse(chapter?.chapterCodes as any)
+            : [],
+        },
         loading: false,
       },
     };
   }),
+
   on(MangaActions.RESET_SELECTED_MANGA, (state) => {
+    return initialState;
+  }),
+  on(ChapterActions.GET_MANGA_CHAPTERS_IMAGES, (state, { chapterCode }) => {
     return {
-      ...initialState,
-      c: {
-        ...state.chapterCollection,
-        chapter: undefined,
-        loading: false,
-      },
+      ...state,
+      selectedChapter: { ...state.selectedChapter, loading: true },
     };
-  })
+  }),
+  on(
+    ChapterActions.GET_MANGA_CHAPTERS_IMAGES_SUCCESS,
+    (state, { imagesData }) => {
+      const images = (
+        imagesData?.chapter?.dataSaver ?? imagesData?.chapter?.data
+      ).map((data: any) => {
+        return `${imagesData.baseUrl}/${
+          imagesData?.chapter?.dataSaver ? 'data-saver' : 'data'
+        }/${imagesData?.chapter.hash}/${data}`;
+      });
+      return {
+        ...state,
+        selectedChapter: {
+          ...state.selectedChapter,
+          loading: false,
+          images: images,
+        },
+      };
+    }
+  )
 );

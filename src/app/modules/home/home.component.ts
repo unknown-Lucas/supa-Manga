@@ -7,21 +7,19 @@ import { MangaActions } from 'src/app/core/state/mangas/mangas/mangas.actions';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ActivatedRoute } from '@angular/router';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { take } from 'rxjs';
 import { MangaDetailsComponent } from 'src/app/shared/components/manga/manga-details/manga-details.component';
 import {
   selectIsMangaLoading,
   selectMangaCollection,
-} from 'src/app/core/state/mangas/mangas/mangas.selector';
+} from 'src/app/core/state/mangas/mangas/mangas.selectors';
 
 @Component({
-  selector: 'app-main',
   standalone: true,
   imports: [CommonModule, MangaCardComponent, MatProgressBarModule],
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss'],
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
 })
-export class MainComponent implements OnInit {
+export class HomeComponent implements OnInit {
   mangasCollection$;
   isMangaLoading$;
   isMangaSelected;
@@ -47,18 +45,21 @@ export class MainComponent implements OnInit {
     this._store.dispatch(
       MangaActions.GET_MANGAS({ attributes: magaAttributes })
     );
-
     if (
       new RegExp('^[0-9,$]*$').test(this?.isMangaSelected ?? '') &&
       this?.isMangaSelected
     ) {
-      this._store.dispatch(
-        MangaActions.SELECT_MANGA_BY_ID({
-          attributes: [],
-          mangaId: Number(this.isMangaSelected),
-        })
-      );
-      this._bottomSheet.open(MangaDetailsComponent);
+      this.openMangaDetails(Number(this.isMangaSelected));
     }
+  }
+
+  openMangaDetails(id: number) {
+    this._store.dispatch(
+      MangaActions.SELECT_MANGA_BY_ID({
+        attributes: [],
+        mangaId: Number(id),
+      })
+    );
+    this._bottomSheet.open(MangaDetailsComponent);
   }
 }

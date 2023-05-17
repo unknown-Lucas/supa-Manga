@@ -56,8 +56,8 @@ export const mangaReducer = createReducer<MangaState>(
     return {
       ...state,
       mangaSelected: {
+        ...state.mangaSelected,
         mangaSelected: undefined,
-        loading: false,
       },
     };
   })

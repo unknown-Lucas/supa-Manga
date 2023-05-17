@@ -6,10 +6,11 @@
     <div
       style="display: flex; justify-content: space-around; align-items: center"
     >
-      <button mat-button>non readed yet</button>
+      <button mat-button>unreaded</button>
       <button
         mat-fab
         color="primary"
+        (click)="readChapter(chapter)"
         aria-label="Example icon button with a delete icon"
       >
         <mat-icon>open_in_browser</mat-icon>

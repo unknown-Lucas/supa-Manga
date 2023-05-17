@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { userModel } from '../../models/auth.model';
+import { User, userModel } from '../../models/auth.model';
 import { AuthActions } from './auth.actions';
 
 const initialState: userModel = {
@@ -56,6 +56,12 @@ export const AuthReducer = createReducer<userModel>(
     return {
       ...state,
       user: (user?.user ?? user) as any,
+    };
+  }),
+  on(AuthActions.SET_USER_DATA, (state, { user }) => {
+    return {
+      ...state,
+      user: (user?.user ?? user) as User,
     };
   })
 );

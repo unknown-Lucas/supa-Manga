@@ -4,14 +4,14 @@ import { provideState } from '@ngrx/store';
 import { AuthService } from './core/services/auth.service';
 import { ChapterService } from './core/services/chapters.service';
 import { MangaService } from './core/services/manga.service';
-import { ChapterEffects } from './core/state/mangas/chapters/chapters.efffects';
+import { ChapterEffects } from './core/state/mangas/chapters/chapters.effects';
 import { MangaEffects } from './core/state/mangas/mangas/mangas.effects';
 import { MANGA_REDUCERS } from './core/state/mangas/mangas/mangas.state';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: '/mangas',
+    redirectTo: '/login',
     pathMatch: 'full',
   },
   {
@@ -23,7 +23,7 @@ export const routes: Routes = [
       provideState('MangaModule', MANGA_REDUCERS),
     ],
     loadComponent: () =>
-      import('./modules/main/main.component').then((mod) => mod.MainComponent),
+      import('./modules/home/home.component').then((mod) => mod.HomeComponent),
   },
   {
     path: 'mangas/:mangaId',
@@ -34,7 +34,7 @@ export const routes: Routes = [
       provideState('MangaModule', MANGA_REDUCERS),
     ],
     loadComponent: () =>
-      import('./modules/main/main.component').then((mod) => mod.MainComponent),
+      import('./modules/home/home.component').then((mod) => mod.HomeComponent),
   },
   {
     path: 'singUp',
@@ -53,7 +53,13 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'reader',
+    path: 'reader/:mangaId/:code',
+    providers: [
+      MangaService,
+      ChapterService,
+      provideEffects([MangaEffects, ChapterEffects]),
+      provideState('MangaModule', MANGA_REDUCERS),
+    ],
     loadComponent: () =>
       import('./modules/reader/reader.component').then(
         (mod) => mod.ReaderComponent

@@ -1,1 +1,39 @@
-<p>reader works!</p>
+<div *ngIf="!(loading$ | async)" class="imageReaderContainer">
+  <span class="chaptherButtonContainer">
+    <button
+      mat-fab
+      [disabled]="!(lastChapter | async)"
+      (click)="goToLastChapter()"
+    >
+      <mat-icon>keyboard_arrow_left</mat-icon>
+    </button>
+    <button mat-raised-button><mat-icon> open_in_browser</mat-icon></button>
+    <button
+      mat-fab
+      [disabled]="!(nextChapter | async)"
+      (click)="goToNextChapter()"
+    >
+      <mat-icon>keyboard_arrow_right</mat-icon>
+    </button>
+  </span>
+  <img
+    [ngSrc]="image"
+    width="900"
+    height="1200"
+    *ngFor="let image of images$ | async"
+    loading="lazy"
+    fetchpriority="auto"
+    alt=""
+  />
+</div>
+
+<span *ngIf="loading$ | async"
+  ><mat-progress-bar
+    mode="indeterminate"
+    class="progressBar"
+  ></mat-progress-bar>
+</span>
+
+<div *ngIf="!(loading$ | async) && !(images$ | async)?.length">
+  <h2>there is no images for this chapters we are sorry!!</h2>
+</div>

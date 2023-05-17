@@ -28,4 +28,10 @@ export class ChapterService {
       `${environment.supabaseUrl}/rest/v1/Chapters?manga_id=eq.${id}&select=${attributesParsed}`
     );
   }
+
+  getChapterImages(chapterCode: string) {
+    return this._http.get<any>(
+      `https://api.mangadex.org/at-home/server/${chapterCode}`
+    );
+  }
 }

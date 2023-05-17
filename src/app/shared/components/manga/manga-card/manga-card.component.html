@@ -5,6 +5,7 @@
     <mat-card-subtitle>{{ manga.genre }}</mat-card-subtitle>
   </mat-card-header>
   <img
+    rel="noreferrer"
     mat-card-image
     [attr.src]="manga.cover"
     width="300"
@@ -20,6 +21,12 @@
       style="margin-right: 10px"
       [url]="mangaUrl"
     ></app-share-button>
-    <button mat-raised-button color="primary" (click)="read()">READ</button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="openMangaDetails.emit(manga._id)"
+    >
+      READ
+    </button>
   </mat-card-actions>
 </mat-card>

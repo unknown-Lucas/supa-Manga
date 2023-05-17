@@ -3,6 +3,7 @@
     <app-manga-card
       *ngFor="let manga of mangasCollection$ | async"
       [manga]="manga"
+      (openMangaDetails)="openMangaDetails($event)"
     ></app-manga-card>
   </span>
   <span *ngIf="isMangaLoading$ | async"
