@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  AfterViewInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ChapterModel } from 'src/app/core/models/chapters.model';
 import { Router } from '@angular/router';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
@@ -18,7 +13,7 @@ import { modules } from './m';
   styleUrls: ['./manga-chapters-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MangaChaptersListComponent implements AfterViewInit {
+export class MangaChaptersListComponent {
   @Input()
   chapters?: ChapterModel | null;
   @Input()
@@ -29,10 +24,6 @@ export class MangaChaptersListComponent implements AfterViewInit {
     private _matBottomSheetRef: MatBottomSheetRef<MangaDetailsComponent>
   ) {}
 
-  ngAfterViewInit(): void {
-    console.log(this.chapters);
-  }
-
   get chapterCodes() {
     const codesArr = this.chapters?.chapterCodes;
     return codesArr;
@@ -40,6 +31,10 @@ export class MangaChaptersListComponent implements AfterViewInit {
 
   readChapter(chapter: string) {
     this._matBottomSheetRef.dismiss();
-    this._router.navigate([`/reader/${this.mangaId}/${chapter}`]);
+    this._router
+      .navigateByUrl('/', { skipLocationChange: true })
+      .then(() =>
+        this._router.navigate([`/reader/${this.mangaId}/${chapter}`])
+      );
   }
 }
