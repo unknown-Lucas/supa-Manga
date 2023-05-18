@@ -8,10 +8,7 @@ import {
   selectMangaSelected,
 } from './mangas.selectors';
 import { MangaActions } from './mangas.actions';
-import {
-  MatBottomSheet,
-  MatBottomSheetRef,
-} from '@angular/material/bottom-sheet';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MangaDetailsComponent } from 'src/app/shared/components/manga/manga-details/manga-details.component';
 
 @Injectable({

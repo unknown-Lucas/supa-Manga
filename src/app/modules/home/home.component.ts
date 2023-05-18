@@ -35,9 +35,8 @@ export class HomeComponent implements OnInit {
     if (
       new RegExp('^[0-9,$]*$').test(this?.isMangaSelected ?? '') &&
       this?.isMangaSelected
-    ) {
+    )
       this.openMangaDetails(Number(this.isMangaSelected));
-    }
   }
 
   openMangaDetails(id: number) {
