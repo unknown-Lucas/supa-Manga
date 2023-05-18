@@ -1,11 +1,8 @@
 import { createAction, props } from '@ngrx/store';
-import { userModel } from 'src/app/core/models/auth.model';
+import { userForm, userModel } from 'src/app/core/models/auth.model';
 
 export namespace AuthActions {
-  export const LOG_IN = createAction(
-    '[AUTH] LOGIN',
-    props<{ email: string; password: string }>()
-  );
+  export const LOG_IN = createAction('[AUTH] LOGIN', props<userForm>());
 
   export const LOG_IN_SUCCESS = createAction(
     '[AUTH] LOGIN_SUCCESS',
@@ -17,10 +14,7 @@ export namespace AuthActions {
     props<{ user: userModel }>()
   );
 
-  export const SING_UP = createAction(
-    '[AUTH] SING_UP',
-    props<{ email: string; password: string }>()
-  );
+  export const SING_UP = createAction('[AUTH] SING_UP', props<userForm>());
 
   export const SING_UP_SUCCESS = createAction(
     'AUTH] SING_UP SUCCESS',

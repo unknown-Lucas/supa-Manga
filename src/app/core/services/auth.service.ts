@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { userModel } from '../models/auth.model';
+import { userForm, userModel } from '../models/auth.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,11 +13,11 @@ export class AuthService {
     return this._http.get<userModel>(environment.supabaseUrl + '/auth/v1/user');
   }
 
-  singUp(values: { email: string; password: string }) {
+  singUp(values: userForm) {
     return this._http.post(environment.supabaseUrl + '/auth/v1/signup', values);
   }
 
-  logIn(values: { email: string; password: string }) {
+  logIn(values: userForm) {
     return this._http.post<userModel>(
       environment.supabaseUrl + '/auth/v1/token?grant_type=password',
       values
@@ -38,7 +38,7 @@ export class AuthService {
     );
   }
 
-  updateUser(newUser: { email: string; password: string }) {
+  updateUser(newUser: userForm) {
     return this._http.put(environment.supabaseUrl + '/auth/v1/user', newUser);
   }
 }
