@@ -42,19 +42,17 @@ export class ReaderComponent implements OnInit {
   ngOnInit(): void {
     this._chapterStore.getChapterImages(this.chapterCode ?? '');
 
-    this.chapters$
-      .pipe(filter((chapter) => Boolean(chapter)))
-      .pipe(take(1))
-      .subscribe((chapter) => {
-        const actualChapterIndex =
-          chapter?.chapterCodes.findIndex((code) => {
-            return code === this.chapterCode;
-          }) ?? 0;
+    this.chapters$.pipe(take(1)).subscribe((chapter) => {
+      if (!chapter) return;
+      const actualChapterIndex =
+        chapter?.chapterCodes.findIndex((code) => {
+          return code === this.chapterCode;
+        }) ?? 0;
 
-        this.nextChapter.next(chapter?.chapterCodes[actualChapterIndex + 1]);
+      this.nextChapter.next(chapter.chapterCodes[actualChapterIndex + 1]);
 
-        this.lastChapter.next(chapter?.chapterCodes[actualChapterIndex - 1]);
-      });
+      this.lastChapter.next(chapter.chapterCodes[actualChapterIndex - 1]);
+    });
   }
   goToLastChapter() {
     this.lastChapter
