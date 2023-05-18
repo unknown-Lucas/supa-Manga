@@ -12,14 +12,14 @@ import { MangaStore } from 'src/app/core/state/mangas/mangas/mangas.store';
   styleUrls: ['./reader.component.scss'],
 })
 export class ReaderComponent implements OnInit {
-  private mangaId: number;
+  mangaId: number;
   chapterCode: string | null;
   images$;
   chapters$;
   chaptersLoading$;
   loading$;
-  nextChapter = new BehaviorSubject<string | undefined>(undefined);
-  lastChapter = new BehaviorSubject<string | undefined>(undefined);
+  nextChapter = '';
+  lastChapter = '';
 
   constructor(
     private _chapterStore: ChaptersStore,
@@ -49,39 +49,9 @@ export class ReaderComponent implements OnInit {
           return code === this.chapterCode;
         }) ?? 0;
 
-      this.nextChapter.next(chapter.chapterCodes[actualChapterIndex + 1]);
+      this.nextChapter = chapter.chapterCodes[actualChapterIndex + 1];
 
-      this.lastChapter.next(chapter.chapterCodes[actualChapterIndex - 1]);
+      this.lastChapter = chapter.chapterCodes[actualChapterIndex - 1];
     });
-  }
-  goToLastChapter() {
-    this.lastChapter
-      .pipe(take(1))
-      .subscribe((code) =>
-        this._router
-          .navigateByUrl('/', { skipLocationChange: true })
-          .then(() =>
-            this._router.navigate([`/reader/${this.mangaId}/${code}`])
-          )
-      );
-  }
-
-  openManga() {
-    this._mangaStore.selectMangaById({
-      mangaId: this.mangaId,
-      attributes: [],
-    });
-  }
-
-  goToNextChapter() {
-    this.nextChapter
-      .pipe(take(1))
-      .subscribe((code) =>
-        this._router
-          .navigateByUrl('/', { skipLocationChange: true })
-          .then(() =>
-            this._router.navigate([`/reader/${this.mangaId}/${code}`])
-          )
-      );
   }
 }

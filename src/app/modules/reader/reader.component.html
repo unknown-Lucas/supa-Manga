@@ -1,23 +1,9 @@
 <div *ngIf="!(loading$ | async)" class="imageReaderContainer">
-  <span class="chaptherButtonContainer">
-    <button
-      mat-fab
-      [disabled]="!(lastChapter | async)"
-      (click)="goToLastChapter()"
-    >
-      <mat-icon>keyboard_arrow_left</mat-icon>
-    </button>
-    <button mat-raised-button (click)="openManga()">
-      <mat-icon> open_in_browser</mat-icon>
-    </button>
-    <button
-      mat-fab
-      [disabled]="!(nextChapter | async)"
-      (click)="goToNextChapter()"
-    >
-      <mat-icon>keyboard_arrow_right</mat-icon>
-    </button>
-  </span>
+  <app-reader-actions
+    [nextChapter]="nextChapter"
+    [mangaId]="mangaId"
+    [lastChapter]="nextChapter"
+  ></app-reader-actions>
   <img
     [ngSrc]="image"
     width="900"
@@ -27,6 +13,11 @@
     fetchpriority="auto"
     alt=""
   />
+  <app-reader-actions
+    [nextChapter]="nextChapter"
+    [mangaId]="mangaId"
+    [lastChapter]="nextChapter"
+  ></app-reader-actions>
 </div>
 
 <span *ngIf="loading$ | async"
