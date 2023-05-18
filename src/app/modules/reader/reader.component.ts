@@ -18,8 +18,8 @@ export class ReaderComponent implements OnInit {
   chapters$;
   chaptersLoading$;
   loading$;
-  nextChapter = new BehaviorSubject<string>('');
-  lastChapter = new BehaviorSubject<string>('');
+  nextChapter = new BehaviorSubject<string | undefined>(undefined);
+  lastChapter = new BehaviorSubject<string | undefined>(undefined);
 
   constructor(
     private _chapterStore: ChaptersStore,
@@ -51,19 +51,15 @@ export class ReaderComponent implements OnInit {
             return code === this.chapterCode;
           }) ?? 0;
 
-        this.nextChapter.next(
-          chapter?.chapterCodes[actualChapterIndex + 1] ?? ''
-        );
+        this.nextChapter.next(chapter?.chapterCodes[actualChapterIndex + 1]);
 
-        this.lastChapter.next(
-          chapter?.chapterCodes[actualChapterIndex - 1] ?? ''
-        );
+        this.lastChapter.next(chapter?.chapterCodes[actualChapterIndex - 1]);
       });
   }
   goToLastChapter() {
     this.lastChapter
       .pipe(take(1))
-      .subscribe((code: string) =>
+      .subscribe((code) =>
         this._router
           .navigateByUrl('/', { skipLocationChange: true })
           .then(() =>
@@ -82,7 +78,7 @@ export class ReaderComponent implements OnInit {
   goToNextChapter() {
     this.nextChapter
       .pipe(take(1))
-      .subscribe((code: string) =>
+      .subscribe((code) =>
         this._router
           .navigateByUrl('/', { skipLocationChange: true })
           .then(() =>
