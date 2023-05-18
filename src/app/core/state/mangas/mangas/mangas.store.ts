@@ -27,10 +27,8 @@ export class MangaStore {
     );
   }
 
-  public getMangas(...params: string[]) {
-    return this._store.dispatch(
-      MangaActions.GET_MANGAS({ attributes: params })
-    );
+  public getMangas(attributes: string[]) {
+    return this._store.dispatch(MangaActions.GET_MANGAS({ attributes }));
   }
 
   public selectMangaById({

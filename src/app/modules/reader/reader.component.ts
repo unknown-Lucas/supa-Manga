@@ -1,14 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { ChapterActions } from 'src/app/core/state/mangas/chapters/chapters.actions';
-import {
-  selectChapterImages,
-  selectIsChapterImagesLoading,
-  selectMangaChapters,
-} from 'src/app/core/state/mangas/mangas/mangas.selectors';
 import { BehaviorSubject, filter, take } from 'rxjs';
-import { MangaActions } from 'src/app/core/state/mangas/mangas/mangas.actions';
 import { modules } from './m';
 import { ChaptersStore } from 'src/app/core/state/mangas/chapters/chapters.store';
 import { MangaStore } from 'src/app/core/state/mangas/mangas/mangas.store';

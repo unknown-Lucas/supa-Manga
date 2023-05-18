@@ -1,13 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { MangaActions } from 'src/app/core/state/mangas/mangas/mangas.actions';
 import { ActivatedRoute } from '@angular/router';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MangaDetailsComponent } from 'src/app/shared/components/manga/manga-details/manga-details.component';
-import {
-  selectIsMangaLoading,
-  selectMangaCollection,
-} from 'src/app/core/state/mangas/mangas/mangas.selectors';
 import { modules } from './m';
 import { MangaStore } from 'src/app/core/state/mangas/mangas/mangas.store';
 
@@ -41,7 +35,7 @@ export class HomeComponent implements OnInit {
       'genre',
       '_id',
     ];
-    this._MangaStore.getMangas(...mangaAttributes);
+    this._MangaStore.getMangas(mangaAttributes);
     if (
       new RegExp('^[0-9,$]*$').test(this?.isMangaSelected ?? '') &&
       this?.isMangaSelected
