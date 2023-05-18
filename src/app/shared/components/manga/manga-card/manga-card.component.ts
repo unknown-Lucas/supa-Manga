@@ -8,7 +8,6 @@ import {
 } from '@angular/core';
 import { MangaModel } from 'src/app/core/models/manga.model';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { MangaDetailsComponent } from '../manga-details/manga-details.component';
 import { Store } from '@ngrx/store';
 import { MangaActions } from 'src/app/core/state/mangas/mangas/mangas.actions';
 import { modules } from './m';
@@ -27,7 +26,7 @@ export class MangaCardComponent {
   @Output()
   openMangaDetails = new EventEmitter<number>();
 
-  constructor(private _bottomSheet: MatBottomSheet, private _store: Store) {}
+  constructor() {}
 
   get mangaUrl() {
     return `${window.location.host}/mangas/${this.manga._id}`;
@@ -41,15 +40,5 @@ export class MangaCardComponent {
       hiatus: 'hiatus-header-image',
     };
     return stateDict[state];
-  }
-
-  read() {
-    this._store.dispatch(
-      MangaActions.SELECT_MANGA_BY_ID({
-        attributes: [],
-        mangaId: this.manga._id,
-      })
-    );
-    this._bottomSheet.open(MangaDetailsComponent);
   }
 }
