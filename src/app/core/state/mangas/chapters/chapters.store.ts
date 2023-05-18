@@ -29,11 +29,11 @@ export class ChaptersStore {
   }
 
   public getChapters({ ...params }: { mangaId: number; attributes: string[] }) {
-    return this._store.dispatch(ChapterActions.GET_MANGA_CHAPTERS(params));
+    this._store.dispatch(ChapterActions.GET_MANGA_CHAPTERS(params));
   }
 
   public getChapterImages(chapterCode: string) {
-    return this._store.dispatch(
+    this._store.dispatch(
       ChapterActions.GET_MANGA_CHAPTERS_IMAGES({ chapterCode })
     );
   }

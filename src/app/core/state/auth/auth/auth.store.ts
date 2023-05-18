@@ -17,10 +17,10 @@ export class AuthStore {
   }
 
   public logIn({ ...params }: userForm) {
-    return this._store.dispatch(AuthActions.LOG_IN(params));
+    this._store.dispatch(AuthActions.LOG_IN(params));
   }
 
   public singUp({ ...params }: userForm) {
-    return this._store.dispatch(AuthActions.SING_UP(params));
+    this._store.dispatch(AuthActions.SING_UP(params));
   }
 }
