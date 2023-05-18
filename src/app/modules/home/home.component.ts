@@ -10,6 +10,7 @@ import { MangaStore } from 'src/app/core/state/mangas/mangas/mangas.store';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
+//TODO: paginate home manga collection
 export class HomeComponent implements OnInit {
   mangasCollection$;
   isMangaLoading$;
