@@ -27,7 +27,7 @@ export const chapterReducer = createReducer<ChapterState>(
     return {
       ...state,
       chapterCollection: {
-        ...state.chapterCollection,
+        images: [],
         loading: true,
       },
     };

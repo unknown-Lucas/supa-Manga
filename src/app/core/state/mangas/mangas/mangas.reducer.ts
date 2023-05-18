@@ -18,9 +18,8 @@ export const mangaReducer = createReducer<MangaState>(
     return {
       ...state,
       mangaCollection: {
-        ...state.mangaCollection,
         loading: true,
-        collection: state.mangaCollection.collection,
+        collection: [],
       },
     };
   }),
