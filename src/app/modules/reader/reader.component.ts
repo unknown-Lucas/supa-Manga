@@ -30,9 +30,9 @@ export class ReaderComponent implements OnInit {
     this.mangaId = Number(
       this._route.snapshot.paramMap.get('mangaId')
     ) as number;
-    if (isNaN(this.mangaId)) this._router.navigate(['']);
+    if (isNaN(this.mangaId)) this._router.navigate(['home']);
     this.chapterCode = this._route.snapshot.paramMap.get('code');
-    if (!this.chapterCode) this._router.navigate(['']);
+    if (!this.chapterCode) this._router.navigate(['home']);
     this.images$ = this._chapterStore.chapterImages$;
     this.loading$ = this._chapterStore.chapterImagesLoading$;
     this.chapters$ = this._chapterStore.mangaChapters$;
