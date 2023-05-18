@@ -10,6 +10,11 @@ import { MANGA_REDUCERS } from './core/state/mangas/mangas/mangas.state';
 
 export const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
+  },
+  {
     path: 'home',
     providers: [
       MangaService,
