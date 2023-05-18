@@ -9,14 +9,7 @@ import { Store } from '@ngrx/store';
 import { filter, ReplaySubject, take, takeUntil } from 'rxjs';
 
 import { NotificationActions } from 'src/app/core/state/notifications/notifications.actions';
-import {
-  selectIsMangaChaptersLoading,
-  selectIsMangaSelectedLoading,
-  selectMangaChapters,
-  selectMangaSelected,
-} from 'src/app/core/state/mangas/mangas/mangas.selectors';
 import { modules } from './m';
-import { selectActualUserId } from 'src/app/core/state/auth/auth/auth.selectors';
 import { MangaStore } from 'src/app/core/state/mangas/mangas/mangas.store';
 import { ChaptersStore } from 'src/app/core/state/mangas/chapters/chapters.store';
 import { AuthStore } from 'src/app/core/state/auth/auth/auth.store';

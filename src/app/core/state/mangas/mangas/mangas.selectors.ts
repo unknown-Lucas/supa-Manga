@@ -32,37 +32,9 @@ export const selectMangaSelected = createSelector(
   }
 );
 
-export const selectMangaChapters = createSelector(
-  selectMangaFeature,
-  (state: MangaReducerState) => {
-    return state.chapters.chapterCollection.chapter;
-  }
-);
-
 export const selectIsMangaSelected = createSelector(
   selectMangaFeature,
   (state: MangaReducerState) => {
     return Boolean(state.manga.mangaCollection.collection.length);
-  }
-);
-
-export const selectIsMangaChaptersLoading = createSelector(
-  selectMangaFeature,
-  (state: MangaReducerState) => {
-    return state.chapters.chapterCollection.loading;
-  }
-);
-
-export const selectChapterImages = createSelector(
-  selectMangaFeature,
-  (state: MangaReducerState) => {
-    return state.chapters.selectedChapter.images;
-  }
-);
-
-export const selectIsChapterImagesLoading = createSelector(
-  selectMangaFeature,
-  (state: MangaReducerState) => {
-    return state.chapters.selectedChapter.loading;
   }
 );

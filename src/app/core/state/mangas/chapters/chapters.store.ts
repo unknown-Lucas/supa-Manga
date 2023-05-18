@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { ChapterActions } from './chapters.actions';
 import {
   selectChapterImages,
   selectIsChapterImagesLoading,
   selectIsMangaChaptersLoading,
   selectMangaChapters,
-} from '../mangas/mangas.selectors';
-import { ChapterActions } from './chapters.actions';
+} from './chapter.selectors';
 
 @Injectable({
   providedIn: 'root',
