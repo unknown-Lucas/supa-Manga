@@ -74,9 +74,5 @@ export class MangaEffects {
     );
   });
 
-  constructor(
-    private actions$: Actions,
-    private _mangaService: MangaService,
-    private _store: Store
-  ) {}
+  constructor(private actions$: Actions, private _mangaService: MangaService) {}
 }

@@ -16,11 +16,7 @@ export class HomeComponent implements OnInit {
   mangasCollection$;
   isMangaLoading$;
   isMangaSelected;
-  constructor(
-    private _MangaStore: MangaStore,
-    private _route: ActivatedRoute,
-    private _bottomSheet: MatBottomSheet
-  ) {
+  constructor(private _MangaStore: MangaStore, private _route: ActivatedRoute) {
     this.mangasCollection$ = this._MangaStore.mangaCollection$;
     this.isMangaLoading$ = this._MangaStore.isMangaCollectionLoading$;
     this.isMangaSelected = this._route.snapshot.paramMap.get('mangaId');
@@ -49,6 +45,5 @@ export class HomeComponent implements OnInit {
       attributes: [],
       mangaId: Number(id),
     });
-    this._bottomSheet.open(MangaDetailsComponent);
   }
 }
