@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -7,9 +6,6 @@ import {
   Output,
 } from '@angular/core';
 import { MangaModel } from 'src/app/core/models/manga.model';
-import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { Store } from '@ngrx/store';
-import { MangaActions } from 'src/app/core/state/mangas/mangas/mangas.actions';
 import { modules } from './m';
 
 @Component({

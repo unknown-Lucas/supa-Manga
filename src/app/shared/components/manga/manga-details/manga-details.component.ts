@@ -17,6 +17,9 @@ import {
 } from 'src/app/core/state/mangas/mangas/mangas.selectors';
 import { modules } from './m';
 import { selectActualUserId } from 'src/app/core/state/auth/auth/auth.selectors';
+import { MangaStore } from 'src/app/core/state/mangas/mangas/mangas.store';
+import { ChaptersStore } from 'src/app/core/state/mangas/chapters/chapters.store';
+import { AuthStore } from 'src/app/core/state/auth/auth/auth.store';
 
 @Component({
   selector: 'app-manga-details',
@@ -35,16 +38,17 @@ export class MangaDetailsComponent implements AfterViewInit, OnDestroy {
   destroy$ = new ReplaySubject<Boolean>();
 
   constructor(
+    private _mangaStore: MangaStore,
+    private _chapterStore: ChaptersStore,
     private _store: Store,
+    private _authStore: AuthStore,
     private _matBottomSheetRef: MatBottomSheetRef<MangaDetailsComponent>
   ) {
-    this.manga$ = this._store.select(selectMangaSelected);
-    this.mangaChapters$ = this._store.select(selectMangaChapters);
-    this.mangaChaptersLoading$ = this._store.select(
-      selectIsMangaChaptersLoading
-    );
-    this.actualUserId$ = this._store.select(selectActualUserId);
-    this.loading$ = this._store.select(selectIsMangaSelectedLoading);
+    this.manga$ = this._mangaStore.mangaSelected$;
+    this.mangaChapters$ = this._chapterStore.mangaChapters$;
+    this.mangaChaptersLoading$ = this._chapterStore.isMangaChaptersLoading$;
+    this.actualUserId$ = this._authStore.userId$;
+    this.loading$ = this._mangaStore.isMangaSelectedLoading$;
   }
 
   getMangaUrl(id: number) {
