@@ -8,6 +8,11 @@ import {
   selectMangaSelected,
 } from './mangas.selectors';
 import { MangaActions } from './mangas.actions';
+import {
+  MatBottomSheet,
+  MatBottomSheetRef,
+} from '@angular/material/bottom-sheet';
+import { MangaDetailsComponent } from 'src/app/shared/components/manga/manga-details/manga-details.component';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +23,7 @@ export class MangaStore {
   mangaSelected$;
   isMangaSelectedLoading$;
 
-  constructor(private _store: Store) {
+  constructor(private _store: Store, private _bottomSheet: MatBottomSheet) {
     this.mangaCollection$ = this._store.select(selectMangaCollection);
     this.isMangaCollectionLoading$ = this._store.select(selectIsMangaLoading);
     this.mangaSelected$ = this._store.select(selectMangaSelected);
@@ -28,7 +33,7 @@ export class MangaStore {
   }
 
   public getMangas(attributes: string[]) {
-    return this._store.dispatch(MangaActions.GET_MANGAS({ attributes }));
+    this._store.dispatch(MangaActions.GET_MANGAS({ attributes }));
   }
 
   public selectMangaById({
@@ -37,6 +42,7 @@ export class MangaStore {
     mangaId: number;
     attributes: string[];
   }) {
-    return this._store.dispatch(MangaActions.SELECT_MANGA_BY_ID(params));
+    this._store.dispatch(MangaActions.SELECT_MANGA_BY_ID(params));
+    this._bottomSheet.open(MangaDetailsComponent);
   }
 }
