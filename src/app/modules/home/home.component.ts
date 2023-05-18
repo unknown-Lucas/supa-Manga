@@ -1,7 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { MangaDetailsComponent } from 'src/app/shared/components/manga/manga-details/manga-details.component';
 import { modules } from './m';
 import { MangaStore } from 'src/app/core/state/mangas/mangas/mangas.store';
 
