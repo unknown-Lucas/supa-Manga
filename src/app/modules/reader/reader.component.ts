@@ -40,11 +40,6 @@ export class ReaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._mangaStore.selectMangaById({
-      mangaId: this.mangaId,
-      attributes: [],
-    });
-
     this._chapterStore.getChapterImages(this.chapterCode ?? '');
 
     this.chapters$
@@ -75,6 +70,13 @@ export class ReaderComponent implements OnInit {
             this._router.navigate([`/reader/${this.mangaId}/${code}`])
           )
       );
+  }
+
+  openManga() {
+    this._mangaStore.selectMangaById({
+      mangaId: this.mangaId,
+      attributes: [],
+    });
   }
 
   goToNextChapter() {
