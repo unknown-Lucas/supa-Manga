@@ -49,9 +49,9 @@ export const chapterReducer = createReducer<ChapterState>(
   }),
 
   on(MangaActions.RESET_SELECTED_MANGA, (state) => {
-    return initialState;
+    return { ...initialState, selectedChapter: { ...state.selectedChapter } };
   }),
-  on(ChapterActions.GET_MANGA_CHAPTERS_IMAGES, (state, { chapterCode }) => {
+  on(ChapterActions.GET_MANGA_CHAPTERS_IMAGES, (state) => {
     return {
       ...state,
       selectedChapter: { ...state.selectedChapter, loading: true },
