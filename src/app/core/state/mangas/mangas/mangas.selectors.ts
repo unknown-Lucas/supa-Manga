@@ -46,7 +46,7 @@ export const selectIsMangaSelected = createSelector(
   }
 );
 
-export const selectisMangaChaptersLoading = createSelector(
+export const selectIsMangaChaptersLoading = createSelector(
   selectMangaFeature,
   (state: MangaReducerState) => {
     return state.chapters.chapterCollection.loading;

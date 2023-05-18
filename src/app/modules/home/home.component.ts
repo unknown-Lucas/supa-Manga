@@ -9,6 +9,7 @@ import {
   selectMangaCollection,
 } from 'src/app/core/state/mangas/mangas/mangas.selectors';
 import { modules } from './m';
+import { MangaStore } from 'src/app/core/state/mangas/mangas/mangas.store';
 
 @Component({
   standalone: true,
@@ -22,17 +23,17 @@ export class HomeComponent implements OnInit {
   isMangaLoading$;
   isMangaSelected;
   constructor(
-    private _store: Store,
+    private _MangaStore: MangaStore,
     private _route: ActivatedRoute,
     private _bottomSheet: MatBottomSheet
   ) {
-    this.mangasCollection$ = this._store.select(selectMangaCollection);
-    this.isMangaLoading$ = this._store.select(selectIsMangaLoading);
+    this.mangasCollection$ = this._MangaStore.mangaCollection$;
+    this.isMangaLoading$ = this._MangaStore.isMangaCollectionLoading$;
     this.isMangaSelected = this._route.snapshot.paramMap.get('mangaId');
   }
 
   ngOnInit(): void {
-    const magaAttributes = [
+    const mangaAttributes = [
       'cover',
       'description',
       'title',
@@ -40,9 +41,7 @@ export class HomeComponent implements OnInit {
       'genre',
       '_id',
     ];
-    this._store.dispatch(
-      MangaActions.GET_MANGAS({ attributes: magaAttributes })
-    );
+    this._MangaStore.getMangas(...mangaAttributes);
     if (
       new RegExp('^[0-9,$]*$').test(this?.isMangaSelected ?? '') &&
       this?.isMangaSelected
@@ -52,12 +51,10 @@ export class HomeComponent implements OnInit {
   }
 
   openMangaDetails(id: number) {
-    this._store.dispatch(
-      MangaActions.SELECT_MANGA_BY_ID({
-        attributes: [],
-        mangaId: Number(id),
-      })
-    );
+    this._MangaStore.selectMangaById({
+      attributes: [],
+      mangaId: Number(id),
+    });
     this._bottomSheet.open(MangaDetailsComponent);
   }
 }

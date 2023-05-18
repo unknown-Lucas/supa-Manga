@@ -44,3 +44,8 @@ export interface IdentityData {
 }
 
 export interface UserMetadata {}
+
+export interface userForm {
+  email: string;
+  password: string;
+}

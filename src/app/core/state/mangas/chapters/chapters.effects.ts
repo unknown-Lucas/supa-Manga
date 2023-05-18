@@ -6,7 +6,7 @@ import { ChapterModel } from 'src/app/core/models/chapters.model';
 import { ChapterService } from 'src/app/core/services/chapters.service';
 import { NotificationActions } from '../../notifications/notifications.actions';
 import { ChapterActions } from './chapters.actions';
-import { isUserLogged } from '../../auth/auth/auth.selectors';
+import { selectIsUserLogged } from '../../auth/auth/auth.selectors';
 
 @Injectable()
 export class ChapterEffects {
@@ -17,7 +17,7 @@ export class ChapterEffects {
         this._chapterService.getChapterByMangaId(mangaId, attributes).pipe(
           map((data) => {
             this._store
-              .select(isUserLogged)
+              .select(selectIsUserLogged)
               .pipe(take(1))
               .subscribe((isLogged) => {
                 if (!isLogged)

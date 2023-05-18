@@ -6,11 +6,12 @@ import {
   selectChapterImages,
   selectIsChapterImagesLoading,
   selectMangaChapters,
-  selectisMangaChaptersLoading,
 } from 'src/app/core/state/mangas/mangas/mangas.selectors';
 import { BehaviorSubject, filter, take } from 'rxjs';
 import { MangaActions } from 'src/app/core/state/mangas/mangas/mangas.actions';
 import { modules } from './m';
+import { ChaptersStore } from 'src/app/core/state/mangas/chapters/chapters.store';
+import { MangaStore } from 'src/app/core/state/mangas/mangas/mangas.store';
 
 @Component({
   standalone: true,
@@ -29,9 +30,10 @@ export class ReaderComponent implements OnInit {
   lastChapter = new BehaviorSubject<string>('');
 
   constructor(
+    private _chapterStore: ChaptersStore,
+    private _mangaStore: MangaStore,
     private _route: ActivatedRoute,
-    private _router: Router,
-    private _store: Store
+    private _router: Router
   ) {
     this.mangaId = Number(
       this._route.snapshot.paramMap.get('mangaId')
@@ -39,25 +41,19 @@ export class ReaderComponent implements OnInit {
     if (isNaN(this.mangaId)) this._router.navigate(['']);
     this.chapterCode = this._route.snapshot.paramMap.get('code');
     if (!this.chapterCode) this._router.navigate(['']);
-    this.images$ = this._store.select(selectChapterImages);
-    this.loading$ = this._store.select(selectIsChapterImagesLoading);
-    this.chapters$ = this._store.select(selectMangaChapters);
-    this.chaptersLoading$ = this._store.select(selectisMangaChaptersLoading);
+    this.images$ = this._chapterStore.chapterImages$;
+    this.loading$ = this._chapterStore.chapterImagesLoading$;
+    this.chapters$ = this._chapterStore.mangaChapters$;
+    this.chaptersLoading$ = this._chapterStore.isMangaChaptersLoading$;
   }
 
   ngOnInit(): void {
-    this._store.dispatch(
-      MangaActions.SELECT_MANGA_BY_ID({
-        mangaId: this.mangaId,
-        attributes: [],
-      })
-    );
+    this._mangaStore.selectMangaById({
+      mangaId: this.mangaId,
+      attributes: [],
+    });
 
-    this._store.dispatch(
-      ChapterActions.GET_MANGA_CHAPTERS_IMAGES({
-        chapterCode: this.chapterCode ?? '',
-      })
-    );
+    this._chapterStore.getChapterImages(this.chapterCode ?? '');
 
     this.chapters$
       .pipe(filter((chapter) => Boolean(chapter)))

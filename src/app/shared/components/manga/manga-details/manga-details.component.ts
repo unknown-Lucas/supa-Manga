@@ -10,7 +10,7 @@ import { filter, ReplaySubject, take, takeUntil } from 'rxjs';
 
 import { NotificationActions } from 'src/app/core/state/notifications/notifications.actions';
 import {
-  selectisMangaChaptersLoading,
+  selectIsMangaChaptersLoading,
   selectIsMangaSelectedLoading,
   selectMangaChapters,
   selectMangaSelected,
@@ -41,7 +41,7 @@ export class MangaDetailsComponent implements AfterViewInit, OnDestroy {
     this.manga$ = this._store.select(selectMangaSelected);
     this.mangaChapters$ = this._store.select(selectMangaChapters);
     this.mangaChaptersLoading$ = this._store.select(
-      selectisMangaChaptersLoading
+      selectIsMangaChaptersLoading
     );
     this.actualUserId$ = this._store.select(selectActualUserId);
     this.loading$ = this._store.select(selectIsMangaSelectedLoading);

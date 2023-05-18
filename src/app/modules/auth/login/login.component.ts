@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { NotificationActions } from 'src/app/core/state/notifications/notifications.actions';
 import { modules } from '../m';
-import { AuthActions } from 'src/app/core/state/auth/auth/auth.actions';
+import { AuthStore } from 'src/app/core/state/auth/auth/auth.store';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +14,11 @@ import { AuthActions } from 'src/app/core/state/auth/auth/auth.actions';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  constructor(private _store: Store, private _router: Router) {}
+  constructor(
+    private _router: Router,
+    private _authStore: AuthStore,
+    private _store: Store
+  ) {}
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -44,9 +48,7 @@ export class LoginComponent implements OnInit {
       password: string;
     };
 
-    this._store.dispatch(
-      AuthActions.LOG_IN({ password: value.password, email: value.email })
-    );
+    this._authStore.logIn({ password: value.password, email: value.email });
   }
 
   ngOnInit(): void {

@@ -45,7 +45,7 @@ export class AuthEffects {
       mergeMap(({ email, password }) =>
         this._authService.logIn({ email, password }).pipe(
           switchMap((data) => {
-            this._router.navigate(['/mangas']);
+            this._router.navigate(['/home']);
             return [
               AuthActions.LOG_IN_SUCCESS({ user: data }),
               NotificationActions.SHOW_OK_MESSAGE({
