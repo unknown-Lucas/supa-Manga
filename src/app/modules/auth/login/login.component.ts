@@ -7,7 +7,6 @@ import { modules } from '../m';
 import { AuthStore } from 'src/app/core/state/auth/auth/auth.store';
 
 @Component({
-  selector: 'app-login',
   standalone: true,
   imports: [...modules],
   templateUrl: './login.component.html',

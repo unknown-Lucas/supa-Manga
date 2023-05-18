@@ -5,7 +5,6 @@ import { modules } from '../m';
 import { AuthActions } from 'src/app/core/state/auth/auth/auth.actions';
 
 @Component({
-  selector: 'app-sing-up',
   standalone: true,
   imports: [...modules],
   templateUrl: './sing-up.component.html',
