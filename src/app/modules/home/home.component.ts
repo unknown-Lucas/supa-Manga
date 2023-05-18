@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
   openMangaDetails(id: number) {
     this._MangaStore.selectMangaById({
       attributes: [],
-      mangaId: Number(id),
+      mangaId: id,
     });
   }
 }
