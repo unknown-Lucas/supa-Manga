@@ -23,7 +23,6 @@ export class ReaderComponent implements OnInit {
 
   constructor(
     private _chapterStore: ChaptersStore,
-    private _mangaStore: MangaStore,
     private _route: ActivatedRoute,
     private _router: Router
   ) {

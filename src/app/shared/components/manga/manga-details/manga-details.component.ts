@@ -56,7 +56,7 @@ export class MangaDetailsComponent implements AfterViewInit, OnDestroy {
         this.manga$.pipe(take(1)).subscribe((manga) => {
           if (!manga) {
             this._matBottomSheetRef.dismiss();
-            return this._store.dispatch(
+            this._store.dispatch(
               NotificationActions.SHOW_WARNING_MESSAGE({
                 message: 'There is no such manga',
               })
