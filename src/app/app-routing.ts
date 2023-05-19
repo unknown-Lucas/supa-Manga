@@ -7,6 +7,7 @@ import { MangaService } from './core/services/manga.service';
 import { ChapterEffects } from './core/state/mangas/chapters/chapters.effects';
 import { MangaEffects } from './core/state/mangas/mangas/mangas.effects';
 import { MANGA_REDUCERS } from './core/state/mangas/mangas/mangas.state';
+import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -60,6 +61,7 @@ export const routes: Routes = [
       provideEffects([MangaEffects, ChapterEffects]),
       provideState('MangaModule', MANGA_REDUCERS),
     ],
+    canActivate: [AuthGuard],
     loadComponent: () =>
       import('./modules/reader/reader.component').then(
         (mod) => mod.ReaderComponent
@@ -67,6 +69,7 @@ export const routes: Routes = [
   },
   {
     path: 'profile',
+    canActivate: [AuthGuard],
     loadComponent: () =>
       import('./modules/profile/profile.component').then(
         (mod) => mod.ProfileComponent
