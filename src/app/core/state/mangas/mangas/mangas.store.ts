@@ -32,7 +32,7 @@ export class MangaStore {
     this._store.dispatch(MangaActions.GET_MANGAS({ attributes }));
   }
 
-  public selectMangaById({
+  public selectMangaByIdAndOpenButtonSheet({
     ...params
   }: {
     mangaId: number;
@@ -40,5 +40,14 @@ export class MangaStore {
   }) {
     this._store.dispatch(MangaActions.SELECT_MANGA_BY_ID(params));
     this._bottomSheet.open(MangaDetailsComponent);
+  }
+
+  public selectMangaById({
+    ...params
+  }: {
+    mangaId: number;
+    attributes: string[];
+  }) {
+    this._store.dispatch(MangaActions.SELECT_MANGA_BY_ID(params));
   }
 }
