@@ -51,6 +51,7 @@ export const chapterReducer = createReducer<ChapterState>(
   on(MangaActions.RESET_SELECTED_MANGA, (state) => {
     return { ...initialState, selectedChapter: { ...state.selectedChapter } };
   }),
+
   on(ChapterActions.GET_MANGA_CHAPTERS_IMAGES, (state) => {
     return {
       ...state,

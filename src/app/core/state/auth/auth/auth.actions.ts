@@ -21,5 +21,7 @@ export namespace AuthActions {
     props<{ user: userModel }>()
   );
 
+  export const LOG_OUT = createAction('[AUTH] LOG OUT');
+
   export const CHECK_CURRENT_TOKEN = createAction('[AUTH] CHECK_CURRENT_USER');
 }

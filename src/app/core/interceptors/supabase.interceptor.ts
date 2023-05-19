@@ -3,9 +3,11 @@ import { environment } from 'src/environments/environment';
 import { isTokenValid, resetTokenCache } from '../helpers/auth.helper';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthStore } from '../state/auth/auth/auth.store';
 
 export const SupabaseInterceptor: HttpInterceptorFn = (req, next) => {
   const _router = inject(Router);
+  const _authStore = inject(AuthStore);
   /// ? if we are proxying to mangadex dont include headers
   if (req.url.includes('api.allorigins.win')) return next(req);
   let headers = req.headers;
@@ -14,6 +16,7 @@ export const SupabaseInterceptor: HttpInterceptorFn = (req, next) => {
   if (token) {
     if (!isTokenValid()) {
       resetTokenCache();
+      _authStore.logOut();
       _router.navigate(['login']);
       window.alert('Your session has expired!');
     }

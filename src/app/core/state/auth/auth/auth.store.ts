@@ -23,4 +23,8 @@ export class AuthStore {
   public singUp({ ...params }: userForm) {
     this._store.dispatch(AuthActions.SING_UP(params));
   }
+
+  public logOut() {
+    this._store.dispatch(AuthActions.LOG_OUT());
+  }
 }

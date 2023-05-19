@@ -63,5 +63,11 @@ export const AuthReducer = createReducer<userModel>(
       ...state,
       user: (user?.user ?? user) as User,
     };
+  }),
+
+  on(AuthActions.LOG_OUT, (state) => {
+    return {
+      ...initialState,
+    };
   })
 );
