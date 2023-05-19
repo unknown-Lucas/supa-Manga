@@ -31,7 +31,8 @@ export class ChapterService {
 
   getChapterImages(chapterCode: string) {
     return this._http.get<any>(
-      `https://api.mangadex.org/at-home/server/${chapterCode}`
+      `https://api.allorigins.win/get?url=https://api.mangadex.org/at-home/server/${chapterCode}`,
+      {}
     );
   }
 }
