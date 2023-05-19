@@ -3,11 +3,11 @@ import { environment } from 'src/environments/environment';
 import { isTokenValid, resetTokenCache } from '../helpers/auth.helper';
 
 export const SupabaseInterceptor: HttpInterceptorFn = (req, next) => {
+  /// ? if we are proxying to mangadex dont include headers
+  if (req.url.includes('api.allorigins.win')) return next(req);
   let headers = req.headers;
   const token = localStorage.getItem('Auth');
   //? Setting supabase token
-  if (req.url.includes('api.allorigins.win')) return next(req);
-
   if (token) {
     if (!isTokenValid()) {
       resetTokenCache();
