@@ -11,7 +11,7 @@ export const SupabaseInterceptor: HttpInterceptorFn = (req, next) => {
   if (token) {
     if (!isTokenValid()) {
       resetTokenCache();
-      window.location.replace('/login');
+      window.location.replace(environment.myHost + '/login');
       window.alert('Your session has expired!');
     }
     headers = req.headers
