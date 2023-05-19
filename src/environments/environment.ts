@@ -1,4 +1,5 @@
 export const environment = {
+  myHost: window.location.host + '/supa-Manga/',
   production: true,
   supabaseUrl: 'https://lnzyoqhtkgovdztbprtd.supabase.co',
   supabaseKey:

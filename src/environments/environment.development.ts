@@ -1,4 +1,5 @@
 export const environment = {
+  myHost: window.location.host,
   production: false,
   supabaseUrl: 'https://lnzyoqhtkgovdztbprtd.supabase.co',
   supabaseKey:
