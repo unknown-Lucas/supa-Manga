@@ -1,0 +1,13 @@
+.git
+
+.firebase
+
+.editorconfig
+
+node_modules
+
+.gitignore
+
+.browserlisttrc
+
+dist
