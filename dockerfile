@@ -1,4 +1,3 @@
-# Use the official Node.js 14 image as the base image
 FROM node:16.10 AS build
 
 # Set the working directory to /app
