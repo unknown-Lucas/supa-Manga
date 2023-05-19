@@ -29,3 +29,9 @@
   );
   // background-color: #e5d1fa;
 }
+
+.navBarLink {
+  & p {
+    display: flex;
+  }
+}

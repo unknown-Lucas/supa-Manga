@@ -41,11 +41,11 @@ export class ReaderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._chapterStore.getChapterImages(this.chapterCode ?? '');
+
     this.chapters$
-      .pipe(filter((a) => !Boolean(a)))
-      .pipe(takeUntil(this.destroy$))
+      .pipe(filter((a) => !Boolean(a))) //? there is no chapter
+      .pipe(takeUntil(this.destroy$)) //!destroy on components destroy or it will execute in home components if chapters collection exists.
       .subscribe(() => {
-        console.log('loading manga....');
         this._mangaStore.selectMangaById({
           mangaId: this.mangaId,
           attributes: ['*'],
@@ -53,7 +53,7 @@ export class ReaderComponent implements OnInit, OnDestroy {
       });
 
     this.chapters$
-      .pipe(filter((a) => Boolean(a)))
+      .pipe(filter((a) => Boolean(a))) //? if chapter collection exist set next and last chapter
       .pipe(take(1))
       .subscribe((chapter) => {
         const actualChapterIndex =
