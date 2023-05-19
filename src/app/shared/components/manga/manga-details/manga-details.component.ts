@@ -13,6 +13,7 @@ import { modules } from './m';
 import { MangaStore } from 'src/app/core/state/mangas/mangas/mangas.store';
 import { ChaptersStore } from 'src/app/core/state/mangas/chapters/chapters.store';
 import { AuthStore } from 'src/app/core/state/auth/auth/auth.store';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-manga-details',
@@ -45,7 +46,7 @@ export class MangaDetailsComponent implements AfterViewInit, OnDestroy {
   }
 
   getMangaUrl(id: number) {
-    return `${process.env['myHost']}/home/${id}`;
+    return `${environment.myHost}/home/${id}`;
   }
 
   ngAfterViewInit(): void {

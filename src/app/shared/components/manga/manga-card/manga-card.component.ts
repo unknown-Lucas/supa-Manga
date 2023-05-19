@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { MangaModel } from 'src/app/core/models/manga.model';
 import { modules } from './m';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-manga-card',
@@ -25,7 +26,7 @@ export class MangaCardComponent {
   constructor() {}
 
   get mangaUrl() {
-    return `${process.env['myHost']}/home/${this.manga._id}`;
+    return `${environment.myHost}/home/${this.manga._id}`;
   }
 
   getMangaStateClass(state: string): string {
