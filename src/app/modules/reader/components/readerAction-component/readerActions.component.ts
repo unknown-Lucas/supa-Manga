@@ -2,6 +2,8 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MangaStore } from 'src/app/core/state/mangas/mangas/mangas.store';
 import { modules } from './m';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { MangaDetailsComponent } from 'src/app/shared/components/manga/manga-details/manga-details.component';
 
 @Component({
   selector: 'app-reader-actions',
@@ -20,7 +22,7 @@ export class ReaderActionsComponent {
   @Input()
   lastChapter: string = '';
 
-  constructor(private _mangaStore: MangaStore, private _router: Router) {}
+  constructor(private _bottomSheet: MatBottomSheet, private _router: Router) {}
 
   goToLastChapter() {
     this._router
@@ -31,10 +33,7 @@ export class ReaderActionsComponent {
   }
 
   openManga() {
-    this._mangaStore.selectMangaById({
-      mangaId: this.mangaId,
-      attributes: [],
-    });
+    this._bottomSheet.open(MangaDetailsComponent);
   }
 
   goToNextChapter() {

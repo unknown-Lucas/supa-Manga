@@ -32,7 +32,7 @@ export class MangaStore {
     this._store.dispatch(MangaActions.GET_MANGAS({ attributes }));
   }
 
-  public selectMangaByIdAndOpenButtonSheet({
+  public selectMangaByIdAndOpenSheet({
     ...params
   }: {
     mangaId: number;

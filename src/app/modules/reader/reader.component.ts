@@ -23,6 +23,7 @@ export class ReaderComponent implements OnInit {
 
   constructor(
     private _chapterStore: ChaptersStore,
+    private _mangaStore: MangaStore,
     private _route: ActivatedRoute,
     private _router: Router
   ) {
@@ -40,17 +41,30 @@ export class ReaderComponent implements OnInit {
 
   ngOnInit(): void {
     this._chapterStore.getChapterImages(this.chapterCode ?? '');
+    this.chapters$
+      .pipe(filter((a) => !Boolean(a)))
+      .pipe(take(1))
+      .subscribe(() => {
+        console.log('loading');
+        this._mangaStore.selectMangaById({
+          mangaId: this.mangaId,
+          attributes: ['*'],
+        });
+      });
 
-    this.chapters$.pipe(take(1)).subscribe((chapter) => {
-      if (!chapter) return;
-      const actualChapterIndex =
-        chapter?.chapterCodes.findIndex((code) => {
-          return code === this.chapterCode;
-        }) ?? 0;
+    this.chapters$
+      .pipe(filter((a) => Boolean(a)))
+      .pipe(take(1))
+      .subscribe((chapter) => {
+        console.log(chapter);
+        const actualChapterIndex =
+          chapter?.chapterCodes.findIndex((code) => {
+            return code === this.chapterCode;
+          }) ?? 0;
 
-      this.nextChapter = chapter.chapterCodes[actualChapterIndex + 1];
+        this.nextChapter = chapter!.chapterCodes[actualChapterIndex + 1];
 
-      this.lastChapter = chapter.chapterCodes[actualChapterIndex - 1];
-    });
+        this.lastChapter = chapter!.chapterCodes[actualChapterIndex - 1];
+      });
   }
 }
