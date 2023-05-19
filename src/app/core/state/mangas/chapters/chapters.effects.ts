@@ -53,7 +53,7 @@ export class ChapterEffects {
         this._chapterService.getChapterImages(chapterCode).pipe(
           map((data) => {
             return ChapterActions.GET_MANGA_CHAPTERS_IMAGES_SUCCESS({
-              imagesData: data,
+              imagesData: JSON.parse(data.contents),
             });
           }),
           catchError((errorData: any) => {

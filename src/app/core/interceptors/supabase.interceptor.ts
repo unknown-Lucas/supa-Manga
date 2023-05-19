@@ -6,6 +6,7 @@ export const SupabaseInterceptor: HttpInterceptorFn = (req, next) => {
   let headers = req.headers;
   const token = localStorage.getItem('Auth');
   //? Setting supabase token
+  if (req.url.includes('api.allorigins.win')) return next(req);
 
   if (token) {
     if (!isTokenValid()) {
