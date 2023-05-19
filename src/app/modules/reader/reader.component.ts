@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, filter, take } from 'rxjs';
+import { BehaviorSubject, ReplaySubject, filter, take, takeUntil } from 'rxjs';
 import { modules } from './m';
 import { ChaptersStore } from 'src/app/core/state/mangas/chapters/chapters.store';
 import { MangaStore } from 'src/app/core/state/mangas/mangas/mangas.store';
@@ -11,7 +11,7 @@ import { MangaStore } from 'src/app/core/state/mangas/mangas/mangas.store';
   templateUrl: './reader.component.html',
   styleUrls: ['./reader.component.scss'],
 })
-export class ReaderComponent implements OnInit {
+export class ReaderComponent implements OnInit, OnDestroy {
   mangaId: number;
   chapterCode: string | null;
   images$;
@@ -20,7 +20,7 @@ export class ReaderComponent implements OnInit {
   loading$;
   nextChapter = '';
   lastChapter = '';
-
+  destroy$ = new ReplaySubject();
   constructor(
     private _chapterStore: ChaptersStore,
     private _mangaStore: MangaStore,
@@ -43,9 +43,9 @@ export class ReaderComponent implements OnInit {
     this._chapterStore.getChapterImages(this.chapterCode ?? '');
     this.chapters$
       .pipe(filter((a) => !Boolean(a)))
-      .pipe(take(1))
+      .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
-        console.log('loading');
+        console.log('loading manga....');
         this._mangaStore.selectMangaById({
           mangaId: this.mangaId,
           attributes: ['*'],
@@ -54,9 +54,8 @@ export class ReaderComponent implements OnInit {
 
     this.chapters$
       .pipe(filter((a) => Boolean(a)))
-      .pipe(take(1))
+      .pipe(takeUntil(this.destroy$))
       .subscribe((chapter) => {
-        console.log(chapter);
         const actualChapterIndex =
           chapter?.chapterCodes.findIndex((code) => {
             return code === this.chapterCode;
@@ -66,5 +65,10 @@ export class ReaderComponent implements OnInit {
 
         this.lastChapter = chapter!.chapterCodes[actualChapterIndex - 1];
       });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();
   }
 }
