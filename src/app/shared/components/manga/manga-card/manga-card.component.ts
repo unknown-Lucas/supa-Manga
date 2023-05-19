@@ -25,7 +25,13 @@ export class MangaCardComponent {
   constructor() {}
 
   get mangaUrl() {
-    return `${window.location.href}/${this.manga._id}`;
+    const location = window.location.href;
+    const locArr = location.split('/');
+    if (locArr.at(-1) === 'home') return `${location}/${this.manga._id}`;
+    else {
+      locArr.pop();
+      return `${locArr.join('/')}/${this.manga._id}`;
+    }
   }
 
   getMangaStateClass(state: string): string {
