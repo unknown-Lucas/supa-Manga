@@ -25,7 +25,7 @@ export class MangaCardComponent {
   constructor() {}
 
   get mangaUrl() {
-    return `${window.location.host}/mangas/${this.manga._id}`;
+    return `${window.location.host}/home/${this.manga._id}`;
   }
 
   getMangaStateClass(state: string): string {
