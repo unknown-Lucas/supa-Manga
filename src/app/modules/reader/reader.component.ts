@@ -18,8 +18,8 @@ export class ReaderComponent implements OnInit, OnDestroy {
   chapters$;
   chaptersLoading$;
   loading$;
-  nextChapter = '';
-  lastChapter = '';
+  nextChapter?: string = '';
+  lastChapter?: string = '';
   destroy$ = new ReplaySubject();
   constructor(
     private _chapterStore: ChaptersStore,
@@ -52,16 +52,19 @@ export class ReaderComponent implements OnInit, OnDestroy {
         });
       });
 
-    this.chapters$.pipe(take(1)).subscribe((chapter) => {
-      const actualChapterIndex =
-        chapter?.chapterCodes.findIndex((code) => {
-          return code === this.chapterCode;
-        }) ?? 0;
+    this.chapters$
+      .pipe(filter((a) => Boolean(a)))
+      .pipe(take(1))
+      .subscribe((chapter) => {
+        const actualChapterIndex =
+          chapter?.chapterCodes.findIndex((code) => {
+            return code === this.chapterCode;
+          }) ?? 0;
 
-      this.nextChapter = chapter!.chapterCodes[actualChapterIndex + 1];
+        this.nextChapter = chapter?.chapterCodes[actualChapterIndex + 1];
 
-      this.lastChapter = chapter!.chapterCodes[actualChapterIndex - 1];
-    });
+        this.lastChapter = chapter?.chapterCodes[actualChapterIndex - 1];
+      });
   }
 
   ngOnDestroy(): void {

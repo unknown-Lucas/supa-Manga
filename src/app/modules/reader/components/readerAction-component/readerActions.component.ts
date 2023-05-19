@@ -17,10 +17,10 @@ export class ReaderActionsComponent {
   mangaId: number = 0;
 
   @Input()
-  nextChapter: string = '';
+  nextChapter?: string = '';
 
   @Input()
-  lastChapter: string = '';
+  lastChapter?: string = '';
 
   constructor(private _bottomSheet: MatBottomSheet, private _router: Router) {}
 
