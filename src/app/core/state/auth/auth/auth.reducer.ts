@@ -3,6 +3,7 @@ import { AuthActions } from './auth.actions';
 import { User, userModel } from 'src/app/core/models/auth.model';
 
 const initialState: userModel = {
+  isLogged: false,
   access_token: '',
   token_type: 'bearer',
   expires_in: 3600,
@@ -55,7 +56,8 @@ export const AuthReducer = createReducer<userModel>(
     }
     return {
       ...state,
-      user: (user?.user ?? user) as any,
+      isLogged: true,
+      user: (user?.user ?? user) as User,
     };
   }),
   on(AuthActions.SET_USER_DATA, (state, { user }) => {

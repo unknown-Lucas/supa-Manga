@@ -27,4 +27,8 @@ export class AuthStore {
   public logOut() {
     this._store.dispatch(AuthActions.LOG_OUT());
   }
+
+  public checkCurrentToken() {
+    this._store.dispatch(AuthActions.CHECK_CURRENT_TOKEN());
+  }
 }

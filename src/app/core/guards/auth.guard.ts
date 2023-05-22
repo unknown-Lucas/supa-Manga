@@ -17,8 +17,8 @@ import { NotificationActions } from '../state/notifications/notifications.action
 export class AuthGuard implements CanActivate {
   constructor(
     private _authStore: AuthStore,
-    private _store: Store,
-    private _router: Router
+    private _router: Router,
+    private _store: Store
   ) {}
 
   canActivate(
@@ -30,16 +30,16 @@ export class AuthGuard implements CanActivate {
     | boolean
     | UrlTree {
     let isLogged = false;
-    this._authStore.isUserLogged$
-      .pipe(take(1))
-      .subscribe((a) => (isLogged = a));
+    this._authStore.isUserLogged$.pipe(take(1)).subscribe((a) => {
+      isLogged = true;
+    });
     if (isLogged) return true;
     this._store.dispatch(
       NotificationActions.SHOW_WARNING_MESSAGE({
         message: 'You cant access this page if you are not logged in',
       })
     );
-    this._router.navigate(['/login']);
+    this._router.navigate(['login']);
     return false;
   }
 }

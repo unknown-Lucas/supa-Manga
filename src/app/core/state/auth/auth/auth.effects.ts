@@ -5,6 +5,7 @@ import { catchError, EMPTY, mergeMap, of, switchMap, map } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 import { NotificationActions } from '../../notifications/notifications.actions';
 import { AuthActions } from './auth.actions';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class AuthEffects {
@@ -71,19 +72,24 @@ export class AuthEffects {
   checkUser$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AuthActions.CHECK_CURRENT_TOKEN),
-      mergeMap(() =>
-        this._authService.getUser().pipe(
-          map((data) => AuthActions.LOG_IN_SUCCESS({ user: data })),
+      mergeMap(() => {
+        return this._authService.getUser().pipe(
+          map((data) => {
+            return AuthActions.LOG_IN_SUCCESS({ user: data });
+          }),
           catchError((errorData: any) => {
+            this._router.navigate(['login']);
+
             return EMPTY;
           })
-        )
-      )
+        );
+      })
     );
   });
 
   constructor(
     private actions$: Actions,
+    private _store: Store,
     private _authService: AuthService,
     private _router: Router
   ) {}
