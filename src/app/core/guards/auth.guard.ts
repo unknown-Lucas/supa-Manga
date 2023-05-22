@@ -31,7 +31,7 @@ export class AuthGuard implements CanActivate {
     | UrlTree {
     let isLogged = false;
     this._authStore.isUserLogged$.pipe(take(1)).subscribe((a) => {
-      isLogged = true;
+      isLogged = a;
     });
     if (isLogged) return true;
     this._store.dispatch(
