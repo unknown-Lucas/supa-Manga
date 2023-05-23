@@ -1,8 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { NotificationActions } from 'src/app/core/state/notifications/notifications.actions';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { modules } from './m';
+import { notificationStore } from 'src/app/core/state/notifications/notifications.store';
 
 @Component({
   selector: 'app-share-button',
@@ -13,13 +12,14 @@ import { modules } from './m';
 export class shareButtonComponent {
   @Input()
   url: string = '';
-  constructor(private _store: Store, private clipboard: Clipboard) {}
+  constructor(
+    private _notificationStore: notificationStore,
+    private clipboard: Clipboard
+  ) {}
 
   shareUrl() {
-    this._store.dispatch(
-      NotificationActions.SHOW_OK_MESSAGE({
-        message: 'Succesfully copied to the clipboard!!',
-      })
+    this._notificationStore.emitOkMessage(
+      'Succesfully copied to the clipboard!!'
     );
     this.clipboard.copy(this.url);
   }

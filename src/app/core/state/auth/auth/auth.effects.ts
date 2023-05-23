@@ -5,7 +5,6 @@ import { catchError, EMPTY, mergeMap, of, switchMap, map } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 import { NotificationActions } from '../../notifications/notifications.actions';
 import { AuthActions } from './auth.actions';
-import { Store } from '@ngrx/store';
 
 @Injectable()
 export class AuthEffects {
@@ -89,7 +88,6 @@ export class AuthEffects {
 
   constructor(
     private actions$: Actions,
-    private _store: Store,
     private _authService: AuthService,
     private _router: Router
   ) {}

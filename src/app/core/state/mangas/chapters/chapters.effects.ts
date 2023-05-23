@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
-import { catchError, map, mergeMap, of, take } from 'rxjs';
+import { EMPTY, catchError, map, mergeMap, of, take } from 'rxjs';
 import { ChapterModel } from 'src/app/core/models/chapters.model';
 import { ChapterService } from 'src/app/core/services/chapters.service';
-import { NotificationActions } from '../../notifications/notifications.actions';
 import { ChapterActions } from './chapters.actions';
-import { selectIsUserLogged } from '../../auth/auth/auth.selectors';
+import { notificationStore } from '../../notifications/notifications.store';
+import { AuthStore } from '../../auth/auth/auth.store';
 
 @Injectable()
 export class ChapterEffects {
@@ -16,15 +15,12 @@ export class ChapterEffects {
       mergeMap(({ mangaId, attributes }) =>
         this._chapterService.getChapterByMangaId(mangaId, attributes).pipe(
           map((data) => {
-            this._store
-              .select(selectIsUserLogged)
+            this._authStore.isUserLogged$
               .pipe(take(1))
               .subscribe((isLogged) => {
                 if (!isLogged)
-                  this._store.dispatch(
-                    NotificationActions.SHOW_INFO_MESSAGE({
-                      message: 'You need to be logged in to see the chapters',
-                    })
+                  this._notificationStore.emitInfoMessage(
+                    'You need to be logged in to see the chapters'
                   );
               });
             return ChapterActions.GET_MANGA_CHAPTERS_SUCCESS({
@@ -32,14 +28,12 @@ export class ChapterEffects {
             });
           }),
           catchError((errorData: any) => {
-            return of(
-              NotificationActions.SHOW_WARNING_MESSAGE({
-                message:
-                  errorData.error?.msg ??
-                  errorData.error?.message ??
-                  errorData?.error?.error_description,
-              })
+            this._notificationStore.emitWarningMessage(
+              errorData.error?.msg ??
+                errorData.error?.message ??
+                errorData?.error?.error_description
             );
+            return EMPTY;
           })
         )
       )
@@ -57,14 +51,12 @@ export class ChapterEffects {
             });
           }),
           catchError((errorData: any) => {
-            return of(
-              NotificationActions.SHOW_WARNING_MESSAGE({
-                message:
-                  errorData.error?.msg ??
-                  errorData.error?.message ??
-                  errorData?.error?.error_description,
-              })
+            this._notificationStore.emitWarningMessage(
+              errorData.error?.msg ??
+                errorData.error?.message ??
+                errorData?.error?.error_description
             );
+            return EMPTY;
           })
         )
       )
@@ -73,7 +65,8 @@ export class ChapterEffects {
 
   constructor(
     private actions$: Actions,
-    private _store: Store,
-    private _chapterService: ChapterService
+    private _chapterService: ChapterService,
+    private _notificationStore: notificationStore,
+    private _authStore: AuthStore
   ) {}
 }
