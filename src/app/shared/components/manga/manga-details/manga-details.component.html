@@ -30,8 +30,14 @@
           <p><b>Author:</b> {{ (manga$ | async)?.author }}</p>
           <p><b>Artist:</b> {{ (manga$ | async)?.artist }}</p>
           <br />
-          <p><b>Created At:</b> {{ (manga$ | async)?.creationDate | date }}</p>
-          <p><b>Updated At:</b> {{ (manga$ | async)?.updatedAt | date }}</p>
+          <p>
+            <b>Created At:</b>
+            {{ (manga$ | async)?.creationDate ?? "0-0-0" | date }}
+          </p>
+          <p>
+            <b>Updated At:</b>
+            {{ (manga$ | async)?.updatedAt ?? "0-0-0" | date }}
+          </p>
           <br />
           <div class="actions">
             <app-share-button
