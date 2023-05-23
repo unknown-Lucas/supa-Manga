@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { NotificationActions } from './notifications.actions';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class notificationStore {
   constructor(private _store: Store) {}
 
