@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { NotificationActions } from './notifications.actions';
 
 @Injectable({ providedIn: 'root' })
-export class notificationStore {
+export class NotificationStore {
   constructor(private _store: Store) {}
 
   emitOkMessage(message: string) {

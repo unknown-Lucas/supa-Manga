@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { modules } from '../m';
-import { AuthStore } from 'src/app/core/state/auth/auth/auth.store';
-import { notificationStore } from 'src/app/core/state/notifications/notifications.store';
+import { NotificationStore } from 'src/app/core/state/notifications/notifications.store';
+import { AuthStore } from 'src/app/core/state/auth/auth.store';
 
 @Component({
   standalone: true,
@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private _router: Router,
     private _authStore: AuthStore,
-    private _notificationStore: notificationStore
+    private _notificationStore: NotificationStore
   ) {}
 
   loginForm = new FormGroup({

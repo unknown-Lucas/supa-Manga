@@ -10,9 +10,9 @@ import { filter, ReplaySubject, take, takeUntil } from 'rxjs';
 import { modules } from './m';
 import { MangaStore } from 'src/app/core/state/mangas/mangas/mangas.store';
 import { ChaptersStore } from 'src/app/core/state/mangas/chapters/chapters.store';
-import { AuthStore } from 'src/app/core/state/auth/auth/auth.store';
 import { environment } from 'src/environments/environment';
-import { notificationStore } from 'src/app/core/state/notifications/notifications.store';
+import { NotificationStore } from 'src/app/core/state/notifications/notifications.store';
+import { AuthStore } from 'src/app/core/state/auth/auth.store';
 
 @Component({
   selector: 'app-manga-details',
@@ -33,7 +33,7 @@ export class MangaDetailsComponent implements AfterViewInit, OnDestroy {
   constructor(
     private _mangaStore: MangaStore,
     private _chapterStore: ChaptersStore,
-    private _notificationStore: notificationStore,
+    private _notificationStore: NotificationStore,
     private _authStore: AuthStore,
     private _matBottomSheetRef: MatBottomSheetRef<MangaDetailsComponent>
   ) {

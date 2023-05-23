@@ -4,8 +4,8 @@ import { EMPTY, catchError, map, mergeMap, of, take } from 'rxjs';
 import { ChapterModel } from 'src/app/core/models/chapters.model';
 import { ChapterService } from 'src/app/core/services/chapters.service';
 import { ChapterActions } from './chapters.actions';
-import { notificationStore } from '../../notifications/notifications.store';
-import { AuthStore } from '../../auth/auth/auth.store';
+import { NotificationStore } from '../../notifications/notifications.store';
+import { AuthStore } from '../../auth/auth.store';
 
 @Injectable()
 export class ChapterEffects {
@@ -66,7 +66,7 @@ export class ChapterEffects {
   constructor(
     private actions$: Actions,
     private _chapterService: ChapterService,
-    private _notificationStore: notificationStore,
+    private _notificationStore: NotificationStore,
     private _authStore: AuthStore
   ) {}
 }

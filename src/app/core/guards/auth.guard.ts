@@ -7,8 +7,8 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable, take } from 'rxjs';
-import { AuthStore } from '../state/auth/auth/auth.store';
-import { notificationStore } from '../state/notifications/notifications.store';
+import { NotificationStore } from '../state/notifications/notifications.store';
+import { AuthStore } from '../state/auth/auth.store';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +17,7 @@ export class AuthGuard implements CanActivate {
   constructor(
     private _authStore: AuthStore,
     private _router: Router,
-    private _notificationStore: notificationStore
+    private _notificationStore: NotificationStore
   ) {}
 
   canActivate(

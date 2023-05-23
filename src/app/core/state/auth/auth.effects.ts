@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, EMPTY, mergeMap, of, switchMap, map } from 'rxjs';
-import { AuthService } from '../../../services/auth.service';
-import { NotificationActions } from '../../notifications/notifications.actions';
 import { AuthActions } from './auth.actions';
+import { AuthService } from '../../services/auth.service';
+import { NotificationActions } from '../notifications/notifications.actions';
+import { MangaLikesActions } from '../mangaLikes/mangaLikes.actions';
 
 @Injectable()
 export class AuthEffects {
@@ -67,7 +68,17 @@ export class AuthEffects {
       )
     );
   });
-
+  afterLogin$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.LOG_IN_SUCCESS),
+      map(({ user }) => {
+        const trueUser = user.user ?? user;
+        return MangaLikesActions.GET_LIKED_MANGAS({
+          userUID: trueUser.id,
+        });
+      })
+    )
+  );
   checkUser$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AuthActions.CHECK_CURRENT_TOKEN),
@@ -77,8 +88,6 @@ export class AuthEffects {
             return AuthActions.LOG_IN_SUCCESS({ user: data });
           }),
           catchError((errorData: any) => {
-            this._router.navigate(['login']);
-
             return EMPTY;
           })
         );

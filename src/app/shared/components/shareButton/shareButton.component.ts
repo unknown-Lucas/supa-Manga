@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { modules } from './m';
-import { notificationStore } from 'src/app/core/state/notifications/notifications.store';
+import { NotificationStore } from 'src/app/core/state/notifications/notifications.store';
 
 @Component({
   selector: 'app-share-button',
@@ -13,7 +13,7 @@ export class shareButtonComponent {
   @Input()
   url: string = '';
   constructor(
-    private _notificationStore: notificationStore,
+    private _notificationStore: NotificationStore,
     private clipboard: Clipboard
   ) {}
 
