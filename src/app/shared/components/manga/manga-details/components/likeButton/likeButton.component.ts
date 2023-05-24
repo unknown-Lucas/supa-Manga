@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { modules } from './m';
 import { MangaLikesStore } from 'src/app/core/state/mangaLikes/mangaLikes.store';
-import { BehaviorSubject, Observable, first } from 'rxjs';
+import { BehaviorSubject, first } from 'rxjs';
 
 @Component({
   selector: 'app-like-button',
@@ -16,12 +16,15 @@ import { BehaviorSubject, Observable, first } from 'rxjs';
   template: ` <button
     mat-icon-button
     (click)="likeManga()"
+    [disabled]="idDisabled"
     [color]="(liked$ | async) ? 'warn' : ''"
   >
     <mat-icon>favorite</mat-icon>
   </button>`,
 })
 export class LikeButtonComponent {
+  @Input()
+  idDisabled: boolean = false;
   @Input()
   mangaId: number = 0;
   @Input()

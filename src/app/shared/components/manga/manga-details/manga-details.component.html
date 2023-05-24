@@ -47,6 +47,7 @@
               [mangaId]="(manga$ | async)?._id ?? 0"
               [liked$]="isLiked$"
               [userUID]="(actualUserId$ | async) ?? ''"
+              [idDisabled]="!(isUserLogged$ | async)"
             ></app-like-button>
           </div>
         </div>
@@ -63,6 +64,7 @@
       [mangaId]="(manga$ | async)?._id"
     ></app-manga-chapters-list>
   </span>
+
   <span *ngIf="loading$ | async">
     <mat-progress-bar
       mode="indeterminate"

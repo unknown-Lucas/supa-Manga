@@ -32,6 +32,7 @@ export class MangaDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   userLikes$;
   loading$;
   actualUserId$;
+  isUserLogged$;
   destroy$ = new ReplaySubject<Boolean>();
 
   constructor(
@@ -46,6 +47,7 @@ export class MangaDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.mangaChapters$ = this._chapterStore.mangaChapters$;
     this.mangaChaptersLoading$ = this._chapterStore.isMangaChaptersLoading$;
     this.actualUserId$ = this._authStore.userId$;
+    this.isUserLogged$ = this._authStore.isUserLogged$;
     this.loading$ = this._mangaStore.isMangaSelectedLoading$;
     this.userLikes$ = this._mangaLikeStore.collection$;
   }
