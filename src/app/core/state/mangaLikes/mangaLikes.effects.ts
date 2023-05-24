@@ -4,6 +4,7 @@ import { catchError, concatMap, map, mergeMap, of } from 'rxjs';
 import { NotificationActions } from '../notifications/notifications.actions';
 import { LikesService } from 'src/app/core/services/likes.service';
 import { MangaLikesActions } from './mangaLikes.actions';
+import { AuthStore } from '../auth/auth.store';
 
 @Injectable()
 export class mangaLikesEffects {
@@ -36,12 +37,18 @@ export class mangaLikesEffects {
       mergeMap(({ mangaId, userUID }) =>
         this._likesService.postMangaLike({ userId: userUID, mangaId }).pipe(
           map((uploadedLike) => {
-            return MangaLikesActions.LIKE_A_MANGA_SUCCESS(uploadedLike);
+            return MangaLikesActions.LIKE_A_MANGA_SUCCESS({
+              likedManga: mangaId,
+            });
           })
         )
       )
     );
   });
 
-  constructor(private actions$: Actions, private _likesService: LikesService) {}
+  constructor(
+    private actions$: Actions,
+    private _likesService: LikesService,
+    private authStore: AuthStore
+  ) {}
 }

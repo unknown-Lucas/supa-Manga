@@ -4,8 +4,9 @@ import {
   Input,
   OnChanges,
 } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { modules } from './m';
+import { MangaLikesStore } from 'src/app/core/state/mangaLikes/mangaLikes.store';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-like-button',
@@ -15,26 +16,25 @@ import { modules } from './m';
   template: ` <button
     mat-icon-button
     (click)="likeManga()"
-    [color]="liked ? 'warn' : ''"
+    [color]="(liked$ | async) ? 'warn' : ''"
   >
     <mat-icon>favorite</mat-icon>
   </button>`,
 })
-export class LikeButtonComponent implements OnChanges {
+export class LikeButtonComponent {
   @Input()
-  manga_id: number = 0;
+  mangaId: number = 0;
   @Input()
-  liked: boolean | null = null;
+  liked$ = new BehaviorSubject(false);
   @Input()
-  user_id: string = '';
-  constructor(private _store: Store) {}
+  userUID: string = '';
 
-  ngOnChanges(a: any) {
-    console.log(a);
-  }
+  constructor(private _mangaLikeStore: MangaLikesStore) {}
 
   likeManga() {
-    this.liked = !this.liked;
-    console.log(this.manga_id, this.user_id);
+    this._mangaLikeStore.likeManga({
+      userUID: this.userUID,
+      mangaId: this.mangaId,
+    });
   }
 }

@@ -7,7 +7,9 @@ import { NotificationStore } from 'src/app/core/state/notifications/notification
   selector: 'app-share-button',
   standalone: true,
   imports: [...modules],
-  template: ` <button mat-raised-button (click)="shareUrl()">SHARE</button>`,
+  template: ` <button mat-raised-button color="primary" (click)="shareUrl()">
+    SHARE
+  </button>`,
 })
 export class shareButtonComponent {
   @Input()

@@ -14,6 +14,7 @@ import {
   take,
   takeUntil,
   tap,
+  BehaviorSubject,
 } from 'rxjs';
 
 import { modules } from './m';
@@ -35,7 +36,7 @@ import { MangaLikesStore } from 'src/app/core/state/mangaLikes/mangaLikes.store'
 export class MangaDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   manga$;
   mangaChapters$;
-  isLiked = false;
+  isLiked$ = new BehaviorSubject(false);
   mangaChaptersLoading$;
   userLikes$;
   loading$;
@@ -62,25 +63,23 @@ export class MangaDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
     return `${environment.myHost}/home/${id}`;
   }
 
-  ngOnInit() {
-    this.userLikes$
-      .pipe(
-        takeUntil(this.destroy$),
-        switchMap((likes) =>
-          this.manga$.pipe(
-            takeUntil(this.destroy$),
-            tap((manga) => {
-              if (!manga) return;
-              if (likes.has(manga?._id)) return (this.isLiked = true);
-              return (this.isLiked = false);
-            })
-          )
-        )
-      )
-      .subscribe();
-  }
+  ngOnInit() {}
 
   ngAfterViewInit(): void {
+    this.userLikes$.pipe(takeUntil(this.destroy$)).subscribe((likes) => {
+      this.manga$
+        .pipe(filter((a) => Boolean(a)))
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((manga) => {
+          console.log(likes, manga?._id);
+          if (!manga) return;
+          if (likes.has(manga?._id)) {
+            return this.isLiked$.next(true);
+          }
+          return this.isLiked$.next(false);
+        });
+    });
+
     this.loading$ //? Check if manga has loaded correctly
       .pipe(takeUntil(this.destroy$))
       .pipe(filter((bool) => !bool))
@@ -115,5 +114,6 @@ export class MangaDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.complete();
+    this.isLiked$.complete();
   }
 }

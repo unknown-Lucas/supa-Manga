@@ -44,9 +44,9 @@
               [url]="getMangaUrl((manga$ | async)?._id ?? 0)"
             ></app-share-button>
             <app-like-button
-              [manga_id]="(manga$ | async)?._id ?? 0"
-              [liked]="isLiked"
-              [user_id]="(actualUserId$ | async) ?? ''"
+              [mangaId]="(manga$ | async)?._id ?? 0"
+              [liked$]="isLiked$"
+              [userUID]="(actualUserId$ | async) ?? ''"
             ></app-like-button>
           </div>
         </div>

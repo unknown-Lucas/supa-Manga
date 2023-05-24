@@ -21,11 +21,7 @@
       style="margin-right: 10px"
       [url]="mangaUrl"
     ></app-share-button>
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="openMangaDetails.emit(manga._id)"
-    >
+    <button mat-raised-button (click)="openMangaDetails.emit(manga._id)">
       READ
     </button>
   </mat-card-actions>
