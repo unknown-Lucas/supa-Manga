@@ -29,6 +29,6 @@ export namespace MangaLikesActions {
 
   export const UNLIKE_A_MANGA_SUCCESS = createAction(
     '[LIKES] UNLIKE A MANGA SUCCESS',
-    props<MangaLike>()
+    props<{ mangaId: number }>()
   );
 }

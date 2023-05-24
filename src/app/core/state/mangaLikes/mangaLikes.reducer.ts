@@ -33,5 +33,12 @@ export const mangaLikesReducer = createReducer(
 
   on(MangaLikesActions.UNLIKE_A_MANGA, (state) => {
     return { ...state, loading: true };
+  }),
+  on(MangaLikesActions.UNLIKE_A_MANGA_SUCCESS, (state, { mangaId }) => {
+    return {
+      ...state,
+      loading: false,
+      likedMangas: new Set([...state.likedMangas].filter((a) => a !== mangaId)),
+    };
   })
 );

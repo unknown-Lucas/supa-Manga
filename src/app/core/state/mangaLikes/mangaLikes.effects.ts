@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, concatMap, map, mergeMap, of } from 'rxjs';
+import { catchError, map, mergeMap, of } from 'rxjs';
 import { NotificationActions } from '../notifications/notifications.actions';
 import { LikesService } from 'src/app/core/services/likes.service';
 import { MangaLikesActions } from './mangaLikes.actions';
-import { AuthStore } from '../auth/auth.store';
 
 @Injectable()
 export class mangaLikesEffects {
@@ -46,9 +45,20 @@ export class mangaLikesEffects {
     );
   });
 
-  constructor(
-    private actions$: Actions,
-    private _likesService: LikesService,
-    private authStore: AuthStore
-  ) {}
+  unlikeManga$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(MangaLikesActions.UNLIKE_A_MANGA),
+      mergeMap(({ mangaId, userUID }) =>
+        this._likesService.mangaUnlike({ userId: userUID, mangaId }).pipe(
+          map(() => {
+            return MangaLikesActions.UNLIKE_A_MANGA_SUCCESS({
+              mangaId,
+            });
+          })
+        )
+      )
+    );
+  });
+
+  constructor(private actions$: Actions, private _likesService: LikesService) {}
 }

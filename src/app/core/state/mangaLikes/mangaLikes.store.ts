@@ -20,6 +20,10 @@ export class MangaLikesStore {
     this._store.dispatch(MangaLikesActions.LIKE_A_MANGA(params));
   }
 
+  unlikeManga({ ...params }: MangaLike) {
+    this._store.dispatch(MangaLikesActions.UNLIKE_A_MANGA(params));
+  }
+
   getUserLikes(userUID: string) {
     this._store.dispatch(MangaLikesActions.GET_LIKED_MANGAS({ userUID }));
   }

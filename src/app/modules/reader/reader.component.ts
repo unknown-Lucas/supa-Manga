@@ -1,6 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, ReplaySubject, filter, take, takeUntil } from 'rxjs';
+import {
+  BehaviorSubject,
+  ReplaySubject,
+  filter,
+  first,
+  take,
+  takeUntil,
+} from 'rxjs';
 import { modules } from './m';
 import { ChaptersStore } from 'src/app/core/state/mangas/chapters/chapters.store';
 import { MangaStore } from 'src/app/core/state/mangas/mangas/mangas.store';
@@ -54,7 +61,7 @@ export class ReaderComponent implements OnInit, OnDestroy {
 
     this.chapters$
       .pipe(filter((a) => Boolean(a))) //? if chapter collection exist set next and last chapter
-      .pipe(take(1))
+      .pipe(first())
       .subscribe((chapter) => {
         const actualChapterIndex =
           chapter?.chapterCodes.findIndex((code) => {

@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { modules } from './m';
 import { MangaLikesStore } from 'src/app/core/state/mangaLikes/mangaLikes.store';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, first } from 'rxjs';
 
 @Component({
   selector: 'app-like-button',
@@ -32,9 +32,17 @@ export class LikeButtonComponent {
   constructor(private _mangaLikeStore: MangaLikesStore) {}
 
   likeManga() {
-    this._mangaLikeStore.likeManga({
-      userUID: this.userUID,
-      mangaId: this.mangaId,
+    this.liked$.pipe(first()).subscribe((isLiked) => {
+      if (!isLiked)
+        return this._mangaLikeStore.likeManga({
+          userUID: this.userUID,
+          mangaId: this.mangaId,
+        });
+
+      return this._mangaLikeStore.unlikeManga({
+        userUID: this.userUID,
+        mangaId: this.mangaId,
+      });
     });
   }
 }

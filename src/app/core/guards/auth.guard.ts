@@ -6,7 +6,7 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { Observable, take } from 'rxjs';
+import { Observable, first } from 'rxjs';
 import { NotificationStore } from '../state/notifications/notifications.store';
 import { AuthStore } from '../state/auth/auth.store';
 
@@ -29,7 +29,7 @@ export class AuthGuard implements CanActivate {
     | boolean
     | UrlTree {
     let isLogged = false;
-    this._authStore.isUserLogged$.pipe(take(1)).subscribe((a) => {
+    this._authStore.isUserLogged$.pipe(first()).subscribe((a) => {
       isLogged = a;
     });
     if (isLogged) return true;

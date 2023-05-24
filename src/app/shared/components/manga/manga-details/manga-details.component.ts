@@ -6,16 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
-import {
-  filter,
-  first,
-  switchMap,
-  ReplaySubject,
-  take,
-  takeUntil,
-  tap,
-  BehaviorSubject,
-} from 'rxjs';
+import { filter, first, ReplaySubject, takeUntil, BehaviorSubject } from 'rxjs';
 
 import { modules } from './m';
 import { MangaStore } from 'src/app/core/state/mangas/mangas/mangas.store';
@@ -84,7 +75,7 @@ export class MangaDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .pipe(filter((bool) => !bool))
       .subscribe(() => {
-        this.manga$.pipe(take(1)).subscribe((manga) => {
+        this.manga$.pipe(first()).subscribe((manga) => {
           if (!manga) {
             this._matBottomSheetRef.dismiss();
             this._notificationStore.emitWarningMessage(
@@ -93,11 +84,6 @@ export class MangaDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         });
       });
-  }
-
-  likeManga() {
-    let _id = null;
-    this.manga$.pipe(take(1)).subscribe((a) => (_id = a?._id ?? 0));
   }
 
   getMangaStateClass(state: string): string {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { EMPTY, catchError, map, mergeMap, of, take } from 'rxjs';
+import { EMPTY, catchError, first, map, mergeMap } from 'rxjs';
 import { ChapterModel } from 'src/app/core/models/chapters.model';
 import { ChapterService } from 'src/app/core/services/chapters.service';
 import { ChapterActions } from './chapters.actions';
@@ -16,7 +16,7 @@ export class ChapterEffects {
         this._chapterService.getChapterByMangaId(mangaId, attributes).pipe(
           map((data) => {
             this._authStore.isUserLogged$
-              .pipe(take(1))
+              .pipe(first())
               .subscribe((isLogged) => {
                 if (!isLogged)
                   this._notificationStore.emitInfoMessage(
