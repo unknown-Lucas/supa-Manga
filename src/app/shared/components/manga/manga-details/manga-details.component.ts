@@ -3,9 +3,18 @@ import {
   Component,
   AfterViewInit,
   OnDestroy,
+  OnInit,
 } from '@angular/core';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
-import { filter, ReplaySubject, take, takeUntil } from 'rxjs';
+import {
+  filter,
+  first,
+  switchMap,
+  ReplaySubject,
+  take,
+  takeUntil,
+  tap,
+} from 'rxjs';
 
 import { modules } from './m';
 import { MangaStore } from 'src/app/core/state/mangas/mangas/mangas.store';
@@ -13,6 +22,7 @@ import { ChaptersStore } from 'src/app/core/state/mangas/chapters/chapters.store
 import { environment } from 'src/environments/environment';
 import { NotificationStore } from 'src/app/core/state/notifications/notifications.store';
 import { AuthStore } from 'src/app/core/state/auth/auth.store';
+import { MangaLikesStore } from 'src/app/core/state/mangaLikes/mangaLikes.store';
 
 @Component({
   selector: 'app-manga-details',
@@ -22,10 +32,12 @@ import { AuthStore } from 'src/app/core/state/auth/auth.store';
   styleUrls: ['./manga-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MangaDetailsComponent implements AfterViewInit, OnDestroy {
+export class MangaDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   manga$;
   mangaChapters$;
+  isLiked = false;
   mangaChaptersLoading$;
+  userLikes$;
   loading$;
   actualUserId$;
   destroy$ = new ReplaySubject<Boolean>();
@@ -35,6 +47,7 @@ export class MangaDetailsComponent implements AfterViewInit, OnDestroy {
     private _chapterStore: ChaptersStore,
     private _notificationStore: NotificationStore,
     private _authStore: AuthStore,
+    private _mangaLikeStore: MangaLikesStore,
     private _matBottomSheetRef: MatBottomSheetRef<MangaDetailsComponent>
   ) {
     this.manga$ = this._mangaStore.mangaSelected$;
@@ -42,14 +55,33 @@ export class MangaDetailsComponent implements AfterViewInit, OnDestroy {
     this.mangaChaptersLoading$ = this._chapterStore.isMangaChaptersLoading$;
     this.actualUserId$ = this._authStore.userId$;
     this.loading$ = this._mangaStore.isMangaSelectedLoading$;
+    this.userLikes$ = this._mangaLikeStore.collection$;
   }
 
   getMangaUrl(id: number) {
     return `${environment.myHost}/home/${id}`;
   }
 
+  ngOnInit() {
+    this.userLikes$
+      .pipe(
+        takeUntil(this.destroy$),
+        switchMap((likes) =>
+          this.manga$.pipe(
+            takeUntil(this.destroy$),
+            tap((manga) => {
+              if (!manga) return;
+              if (likes.has(manga?._id)) return (this.isLiked = true);
+              return (this.isLiked = false);
+            })
+          )
+        )
+      )
+      .subscribe();
+  }
+
   ngAfterViewInit(): void {
-    this.loading$
+    this.loading$ //? Check if manga has loaded correctly
       .pipe(takeUntil(this.destroy$))
       .pipe(filter((bool) => !bool))
       .subscribe(() => {
@@ -70,6 +102,7 @@ export class MangaDetailsComponent implements AfterViewInit, OnDestroy {
   }
 
   getMangaStateClass(state: string): string {
+    //? given a state returns the circle color associated to that state
     const stateDict: { [K: string]: string } = {
       ongoing: 'ongoing-header-image',
       completed: 'completed-header-image',

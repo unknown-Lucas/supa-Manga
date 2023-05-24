@@ -45,7 +45,7 @@
             ></app-share-button>
             <app-like-button
               [manga_id]="(manga$ | async)?._id ?? 0"
-              [liked]="(manga$ | async)?.liked ?? false"
+              [liked]="isLiked"
               [user_id]="(actualUserId$ | async) ?? ''"
             ></app-like-button>
           </div>
