@@ -3,7 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { shareButtonComponent } from '../../shareButton/shareButton.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MangaChaptersListComponent } from './components/manga-chapters-list/manga-chapters-list.component';
-import { LikeButtonComponent } from '../../likeButton/likeButton.component';
+import { LikeButtonComponent } from './components/likeButton/likeButton.component';
 
 export const modules = [
   CommonModule,
