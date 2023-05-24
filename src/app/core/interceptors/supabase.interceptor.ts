@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { AuthStore } from '../state/auth/auth.store';
 
 export const SupabaseInterceptor: HttpInterceptorFn = (req, next) => {
-  const _router = inject(Router);
   const _authStore = inject(AuthStore);
   /// ? if we are proxying to mangadex dont include headers
   if (req.url.includes('api.allorigins.win')) return next(req);
@@ -17,7 +16,7 @@ export const SupabaseInterceptor: HttpInterceptorFn = (req, next) => {
     if (!isTokenValid()) {
       resetTokenCache();
       _authStore.logOut();
-      _router.navigate(['login']);
+      window.location.href = '/login'; // ! instead of router this reset all the windows states
       window.alert('Your session has expired!');
     }
     headers = req.headers
