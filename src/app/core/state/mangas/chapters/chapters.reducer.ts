@@ -33,7 +33,6 @@ export const chapterReducer = createReducer<ChapterState>(
     };
   }),
   on(ChapterActions.GET_MANGA_CHAPTERS_SUCCESS, (state, { chapter }) => {
-    console.log(chapter);
     return {
       ...state,
       chapterCollection: {

@@ -7,7 +7,6 @@ export const selectAuthFeature =
 export const selectIsUserLogged = createSelector(
   selectAuthFeature,
   (state: AuthReducerState) => {
-    console.log(state);
     return state.user.isLogged;
   }
 );

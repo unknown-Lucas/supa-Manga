@@ -27,7 +27,6 @@ export class LikesService {
   }
 
   mangaUnlike({ userId, mangaId }: { userId: string; mangaId: number }) {
-    console.log(userId, mangaId);
     return this._http.delete<any>(
       `${environment.supabaseUrl}/rest/v1/Likes?userUID=eq.${userId}&mangaId=eq.${mangaId}`
     );

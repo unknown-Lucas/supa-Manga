@@ -17,14 +17,13 @@ export const mangaLikesReducer = createReducer(
     return { ...state, loading: true };
   }),
   on(MangaLikesActions.GET_LIKED_MANGAS_SUCCESS, (state, { likes }) => {
+    const likeId = likes.map((a) => a.mangaId);
     return {
       loading: false,
-      likedMangas: new Set([...likes].map((a) => a.mangaId)),
+      likedMangas: new Set(likeId),
     };
   }),
-  on(MangaLikesActions.LIKE_A_MANGA, (state) => {
-    return { ...state, loading: true };
-  }),
+
   on(MangaLikesActions.UNLIKE_A_MANGA, (state) => {
     return { ...state, loading: true };
   })
