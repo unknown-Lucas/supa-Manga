@@ -2,7 +2,6 @@ import { HttpInterceptorFn } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { isTokenValid, resetTokenCache } from '../helpers/auth.helper';
 import { inject } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthStore } from '../state/auth/auth.store';
 
 export const SupabaseInterceptor: HttpInterceptorFn = (req, next) => {
@@ -16,7 +15,7 @@ export const SupabaseInterceptor: HttpInterceptorFn = (req, next) => {
     if (!isTokenValid()) {
       resetTokenCache();
       _authStore.logOut();
-      window.location.href = '/login'; // ! instead of router this reset all the windows states
+      window.location.href = environment.myHost; // ! instead of router this reset all the windows states
       window.alert('Your session has expired!');
     }
     headers = req.headers
