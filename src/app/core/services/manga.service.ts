@@ -10,9 +10,13 @@ import { MangaModel } from '../models/manga.model';
 export class MangaService {
   constructor(private _http: HttpClient) {}
 
-  getMangas(attributes: string[]): Observable<MangaModel[]> {
+  getMangas(attributes: string[], limit?: number): Observable<MangaModel[]> {
     let attributesParsed = '*';
     if (attributes.length) attributesParsed = attributes.join(',');
+    if (!limit)
+      return this._http.get<MangaModel[]>(
+        `${environment.supabaseUrl}/rest/v1/Mangas?select=${attributesParsed}`
+      );
     return this._http.get<MangaModel[]>(
       `${environment.supabaseUrl}/rest/v1/Mangas?select=${attributesParsed}`
     );

@@ -33,7 +33,7 @@ export namespace MangaActions {
 
   export const GET_MANGAS_BY_RANGE = createAction(
     '[MANGAS] GET MANGAS BY RANGE',
-    props<{ start: number; end: number }>()
+    props<{ start: number; end: number; attributes: string[] }>()
   );
 
   export const GET_MANGAS_BY_RANGE_SUCCESS = createAction(

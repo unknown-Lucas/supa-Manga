@@ -4,7 +4,6 @@ import { catchError, concatMap, map, mergeMap, of } from 'rxjs';
 import { MangaService } from 'src/app/core/services/manga.service';
 import { NotificationActions } from '../../notifications/notifications.actions';
 import { ChapterActions } from '../chapters/chapters.actions';
-
 import { MangaActions } from './mangas.actions';
 
 @Injectable()

@@ -1,0 +1,51 @@
+.carousel-page {
+  padding: 2vh;
+  height: 93vh;
+}
+
+.carousel-container {
+  display: flex;
+  overflow-x: hidden;
+  position: relative;
+  padding: 1vw;
+}
+
+.carousel-wrapper {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  position: relative;
+  z-index: 0;
+}
+
+.carousel-title {
+  color: white;
+  text-align: center;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.carousel-card {
+  flex: 0 0 300px;
+  margin: 0 10px;
+}
+
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.5
+  ); /* Added background color for visibility */
+}
+
+.carousel-nav.left {
+  left: 0; /* Adjusted to align to the left side */
+}
+
+.carousel-nav.right {
+  right: 0; /* Adjusted to align to the right side */
+}

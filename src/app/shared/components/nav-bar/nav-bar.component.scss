@@ -15,6 +15,7 @@
 }
 
 .mat-toolbar.mat-primary {
+  height: 7vh;
   position: sticky;
   top: 0;
   z-index: 4;
@@ -23,7 +24,7 @@
 .app-content {
   height: 100vh;
   background: linear-gradient(
-    109.6deg,
+    360.6deg,
     rgba(119, 44, 232, 0.68) 11.5%,
     rgb(119, 44, 232) 91.2%
   );

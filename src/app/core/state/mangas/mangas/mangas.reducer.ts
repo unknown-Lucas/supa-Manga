@@ -3,12 +3,22 @@ import { MangaModel } from 'src/app/core/models/manga.model';
 import { MangaActions } from './mangas.actions';
 
 export interface MangaState {
-  mangaCollection: { collection: MangaModel[]; loading: boolean };
+  libraryCollection: { collection: MangaModel[]; loading: boolean };
+  homeCollection: {
+    seinens: { collection: MangaModel[]; loading: boolean };
+    shounens: { collection: MangaModel[]; loading: boolean };
+    latest: { collection: MangaModel[]; loading: boolean };
+  };
   mangaSelected: { mangaSelected?: MangaModel; loading: boolean };
 }
 
 const initialState: MangaState = {
-  mangaCollection: { collection: [], loading: false },
+  libraryCollection: { collection: [], loading: false },
+  homeCollection: {
+    seinens: { collection: [], loading: false },
+    shounens: { collection: [], loading: false },
+    latest: { collection: [], loading: false },
+  },
   mangaSelected: { mangaSelected: undefined, loading: false },
 };
 
@@ -17,7 +27,7 @@ export const mangaReducer = createReducer<MangaState>(
   on(MangaActions.GET_MANGAS, (state) => {
     return {
       ...state,
-      mangaCollection: {
+      libraryCollection: {
         loading: true,
         collection: [],
       },
@@ -26,8 +36,8 @@ export const mangaReducer = createReducer<MangaState>(
   on(MangaActions.GET_ALL_MANGAS_SUCCESS, (state, { mangaCollection }) => {
     return {
       ...state,
-      mangaCollection: {
-        ...state.mangaCollection,
+      libraryCollection: {
+        ...state.libraryCollection,
         collection: mangaCollection,
         loading: false,
       },

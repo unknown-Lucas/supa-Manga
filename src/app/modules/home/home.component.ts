@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { modules } from './m';
+import { components, modules } from './m';
 import { MangaStore } from 'src/app/core/state/mangas/mangas/mangas.store';
 
 @Component({
   standalone: true,
-  imports: [...modules],
+  imports: [...modules, ...components],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
@@ -35,10 +35,10 @@ export class HomeComponent implements OnInit {
       new RegExp('^[0-9,$]*$').test(this?.isMangaSelected ?? '') &&
       this?.isMangaSelected
     )
-      this.openMangaDetails(Number(this.isMangaSelected));
+      this.onOpenMangaDetails(Number(this.isMangaSelected));
   }
 
-  openMangaDetails(id: number) {
+  onOpenMangaDetails(id: number) {
     this._MangaStore.selectMangaByIdAndOpenSheet({
       attributes: [],
       mangaId: id,

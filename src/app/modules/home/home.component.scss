@@ -1,11 +1,18 @@
-.mangaContainer {
-  display: flex;
-  align-content: space-between;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
+// .mangaContainer {
+//   display: flex;
+//   align-content: space-between;
+//   flex-wrap: wrap;
+//   justify-content: space-around;
+// }
 
 .progressBar {
   position: absolute;
   top: 50%;
+}
+
+.mangaContainer {
+  flex: 1;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  scroll-padding-top: 50vh;
 }

@@ -7,14 +7,14 @@ export const selectMangaFeature =
 export const selectMangaCollection = createSelector(
   selectMangaFeature,
   (state: MangaReducerState) => {
-    return state.manga.mangaCollection.collection;
+    return state.manga.libraryCollection.collection;
   }
 );
 
 export const selectIsMangaLoading = createSelector(
   selectMangaFeature,
   (state: MangaReducerState) => {
-    return state.manga.mangaCollection.loading;
+    return state.manga.libraryCollection.loading;
   }
 );
 
@@ -35,6 +35,6 @@ export const selectMangaSelected = createSelector(
 export const selectIsMangaSelected = createSelector(
   selectMangaFeature,
   (state: MangaReducerState) => {
-    return Boolean(state.manga.mangaCollection.collection.length);
+    return Boolean(state.manga.libraryCollection.collection.length);
   }
 );

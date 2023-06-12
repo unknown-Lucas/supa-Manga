@@ -1,0 +1,30 @@
+<div class="carousel-page">
+  <h1 class="carousel-title">{{ title }}</h1>
+  <button
+    mat-fab
+    class="carousel-nav-left"
+    color="primary"
+    (click)="prevSlide()"
+  >
+    <mat-icon>keyboard_arrow_left</mat-icon>
+  </button>
+  <div class="carousel-container">
+    <div class="carousel-wrapper" #carouselWrapper>
+      <ng-container *ngFor="let manga of collection">
+        <app-manga-card
+          class="carousel-card"
+          [manga]="manga"
+          (openMangaDetails)="openMangaDetails.emit($event)"
+        ></app-manga-card>
+      </ng-container>
+    </div>
+  </div>
+  <button
+    mat-fab
+    class="carousel-nav-right"
+    color="primary"
+    (click)="nextSlide()"
+  >
+    <mat-icon>keyboard_arrow_right</mat-icon>
+  </button>
+</div>
