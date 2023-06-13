@@ -33,7 +33,12 @@ export namespace MangaActions {
 
   export const GET_MANGAS_BY_RANGE = createAction(
     '[MANGAS] GET MANGAS BY RANGE',
-    props<{ start: number; end: number; attributes: string[] }>()
+    props<{
+      start: number;
+      end: number;
+      attributes: string[];
+      where?: Partial<MangaModel>;
+    }>()
   );
 
   export const GET_MANGAS_BY_RANGE_SUCCESS = createAction(
