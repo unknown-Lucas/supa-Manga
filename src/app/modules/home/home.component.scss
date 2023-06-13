@@ -11,8 +11,8 @@
 }
 
 .mangaContainer {
-  flex: 1;
-  overflow-y: auto;
+  z-index: 1;
+  height: 100%;
   scroll-behavior: smooth;
   scroll-padding-top: 50vh;
 }

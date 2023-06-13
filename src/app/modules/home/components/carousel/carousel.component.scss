@@ -1,5 +1,10 @@
 .carousel-page {
-  padding: 2vh;
+  display: flex;
+  height: 100%;
+  padding-right: 1vw;
+  padding-left: 1vw;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .carousel-container {
@@ -24,22 +29,13 @@
 }
 
 .carousel-nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1;
-  background-color: rgba(
-    0,
-    0,
-    0,
-    0.5
-  ); /* Added background color for visibility */
+  display: flow-root;
 }
 
-.carousel-nav.left {
-  left: 0; /* Adjusted to align to the left side */
+.carousel-nav-left {
+  float: left;
 }
 
-.carousel-nav.right {
-  right: 0; /* Adjusted to align to the right side */
+.carousel-nav-right {
+  float: right;
 }

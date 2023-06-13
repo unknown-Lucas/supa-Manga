@@ -1,5 +1,5 @@
-<div>
-  <span *ngIf="!(isMangaLoading$ | async)" class="mangaContainer">
+<div style="height: 100%">
+  <div *ngIf="!(isMangaLoading$ | async)" class="mangaContainer">
     <app-carousel
       [title]="'Popular Seinens ⚔️'"
       [elementsCount]="(mangasCollection$ | async)?.length ?? 0"
@@ -11,7 +11,18 @@
         (openMangaDetails)="onOpenMangaDetails($event)"
       ></app-manga-card>
     </app-carousel>
-  </span>
+    <app-carousel
+      [title]="'Popular shounens 🥊'"
+      [elementsCount]="(mangasCollection$ | async)?.length ?? 0"
+    >
+      <app-manga-card
+        *ngFor="let manga of mangasCollection$ | async"
+        class="carousel-card"
+        [manga]="manga"
+        (openMangaDetails)="onOpenMangaDetails($event)"
+      ></app-manga-card>
+    </app-carousel>
+  </div>
   <span *ngIf="isMangaLoading$ | async"
     ><mat-progress-bar
       mode="indeterminate"
