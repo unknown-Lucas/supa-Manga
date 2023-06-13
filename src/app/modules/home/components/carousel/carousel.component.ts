@@ -38,7 +38,7 @@ export class CarouselComponent implements AfterViewInit {
 
   stopAutoCarousel() {
     this.autoSlide = false;
-    setTimeout(() => (this.autoSlide = true), 15000);
+    setTimeout(() => (this.autoSlide = true), 20000);
   }
 
   prevSlideButton() {
