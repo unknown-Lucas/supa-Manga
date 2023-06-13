@@ -67,7 +67,7 @@ export class CarouselComponent implements AfterViewInit {
   slideToCurrent() {
     const cardWidth =
       this.carouselWrapper.nativeElement.children[0].offsetWidth;
-    const offset = this.currentSlideIndex * (cardWidth + 20); //? Add any additional margin or padding if present
+    const offset = this.currentSlideIndex * (cardWidth + 20) * 2; //? Add any additional margin or padding if present
     this.carouselWrapper.nativeElement.style.transform = `translateX(-${offset}px)`;
   }
 }
