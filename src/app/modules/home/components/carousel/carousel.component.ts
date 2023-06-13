@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
@@ -16,7 +17,7 @@ import { components, modules } from './m';
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss'],
 })
-export class CarouselComponent {
+export class CarouselComponent implements AfterViewInit {
   @ViewChild('carouselWrapper', { static: true }) carouselWrapper!: ElementRef;
 
   @Input()
@@ -27,14 +28,37 @@ export class CarouselComponent {
   openMangaDetails = new EventEmitter();
   private currentSlideIndex = 0;
 
-  prevSlide() {
+  autoSlide = true;
+
+  ngAfterViewInit(): void {
+    setInterval(() => {
+      if (this.autoSlide) this.nextSlide();
+    }, 3000);
+  }
+
+  stopAutoCarousel() {
+    this.autoSlide = false;
+    setTimeout(() => (this.autoSlide = true), 15000);
+  }
+
+  prevSlideButton() {
+    this.stopAutoCarousel();
+    this.prevSlide();
+  }
+
+  nextSlideButton() {
+    this.stopAutoCarousel();
+    this.nextSlide();
+  }
+
+  private prevSlide() {
     this.currentSlideIndex =
       (this.currentSlideIndex - 1 + this.collection.length) %
       this.collection.length;
     this.slideToCurrent();
   }
 
-  nextSlide() {
+  private nextSlide() {
     this.currentSlideIndex =
       (this.currentSlideIndex + 1) % this.collection.length;
     this.slideToCurrent();

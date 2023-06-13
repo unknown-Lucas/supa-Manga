@@ -4,7 +4,7 @@
     mat-fab
     class="carousel-nav-left"
     color="primary"
-    (click)="prevSlide()"
+    (click)="prevSlideButton()"
   >
     <mat-icon>keyboard_arrow_left</mat-icon>
   </button>
@@ -15,6 +15,7 @@
           class="carousel-card"
           [manga]="manga"
           (openMangaDetails)="openMangaDetails.emit($event)"
+          (click)="stopAutoCarousel()"
         ></app-manga-card>
       </ng-container>
     </div>
@@ -23,7 +24,7 @@
     mat-fab
     class="carousel-nav-right"
     color="primary"
-    (click)="nextSlide()"
+    (click)="nextSlideButton()"
   >
     <mat-icon>keyboard_arrow_right</mat-icon>
   </button>
