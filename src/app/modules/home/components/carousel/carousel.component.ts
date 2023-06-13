@@ -33,7 +33,7 @@ export class CarouselComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     setInterval(() => {
       if (this.autoSlide) this.nextSlide();
-    }, 3000);
+    }, 4000);
   }
 
   stopAutoCarousel() {
@@ -41,24 +41,14 @@ export class CarouselComponent implements AfterViewInit {
     setTimeout(() => (this.autoSlide = true), 20000);
   }
 
-  prevSlideButton() {
-    this.stopAutoCarousel();
-    this.prevSlide();
-  }
-
-  nextSlideButton() {
-    this.stopAutoCarousel();
-    this.nextSlide();
-  }
-
-  private prevSlide() {
+  prevSlide() {
     this.currentSlideIndex =
       (this.currentSlideIndex - 1 + this.collection.length) %
       this.collection.length;
     this.slideToCurrent();
   }
 
-  private nextSlide() {
+  nextSlide() {
     this.currentSlideIndex =
       (this.currentSlideIndex + 1) % this.collection.length;
     this.slideToCurrent();
