@@ -8,16 +8,9 @@
   >
     <mat-icon>keyboard_arrow_left</mat-icon>
   </button>
-  <div class="carousel-container">
+  <div class="carousel-container" (click)="stopAutoCarousel()">
     <div class="carousel-wrapper" #carouselWrapper>
-      <ng-container *ngFor="let manga of collection">
-        <app-manga-card
-          class="carousel-card"
-          [manga]="manga"
-          (openMangaDetails)="openMangaDetails.emit($event)"
-          (click)="stopAutoCarousel()"
-        ></app-manga-card>
-      </ng-container>
+      <ng-content class="carousel-elements"></ng-content>
     </div>
   </div>
   <button

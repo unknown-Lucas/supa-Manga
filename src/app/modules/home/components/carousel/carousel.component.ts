@@ -21,12 +21,10 @@ export class CarouselComponent implements AfterViewInit {
   @ViewChild('carouselWrapper', { static: true }) carouselWrapper!: ElementRef;
 
   @Input()
-  collection: MangaModel[] = [];
-  @Input()
   title: string = '';
-  @Output()
-  openMangaDetails = new EventEmitter();
   private currentSlideIndex = 0;
+  @Input()
+  elementsCount: number = 0;
 
   autoSlide = true;
   isWaiting = false;
@@ -60,14 +58,12 @@ export class CarouselComponent implements AfterViewInit {
 
   private prevSlide() {
     this.currentSlideIndex =
-      (this.currentSlideIndex - 1 + this.collection.length) %
-      this.collection.length;
+      (this.currentSlideIndex - 1 + this.elementsCount) % this.elementsCount;
     this.slideToCurrent();
   }
 
   private nextSlide() {
-    this.currentSlideIndex =
-      (this.currentSlideIndex + 1) % this.collection.length;
+    this.currentSlideIndex = (this.currentSlideIndex + 1) % this.elementsCount;
     this.slideToCurrent();
   }
 
